@@ -41,7 +41,7 @@ const tabbar = [
     route
     active-color="#FB233B"
     inactive-color="#A5A5A5"
-    class="-z-10"
+    :fixed="false"
   >
     <van-tabbar-item
       v-for="tabItem in tabbar"

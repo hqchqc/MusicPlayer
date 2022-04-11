@@ -7,7 +7,6 @@ let banner = ref<string[]>([]);
 
 onBeforeMount(async () => {
   const msg = await postVerification();
-  console.log(msg.banners);
   if (msg?.code === 200) {
     banner.value = isArray(msg?.banners)
       ? msg?.banners?.map((item) => item?.pic)

@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    TheScroll: typeof import('./src/components/common/TheScroll.vue')['default']
     TheTabBar: typeof import('./src/components/content/TheTabBar/TheTabBar.vue')['default']
     VanButton: typeof import("vant/es")["Button"];
     VanConfigProvider: typeof import('vant/es')['ConfigProvider']
