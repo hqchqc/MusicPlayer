@@ -42,6 +42,7 @@ const tabbar = [
     active-color="#FB233B"
     inactive-color="#A5A5A5"
     :fixed="false"
+    class="rounded-xl"
   >
     <van-tabbar-item
       v-for="tabItem in tabbar"

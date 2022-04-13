@@ -11,10 +11,10 @@ const themeVars = {
 
 <template>
   <main
-    class="absolute top-0 bottom-0 right-0 left-0 m-auto w-96 h-720 shadow-[0_0_50px_0_rgba(30,0,60,0.3)] bg-white"
+    class="absolute top-0 bottom-0 right-0 left-0 m-auto w-375 h-812 shadow-[0_0_50px_0_rgba(30,0,60,0.3)] bg-white rounded-lg"
   >
     <van-config-provider :theme-vars="themeVars">
-      <the-scroll class="h-[calc(45rem-4.9375rem)] overflow-hidden">
+      <the-scroll class="h-[calc(50.75rem-4.9375rem)] overflow-hidden">
         <router-view />
       </the-scroll>
       <the-tab-bar />
@@ -28,5 +28,6 @@ const themeVars = {
   --van-primary-color: #fb233b;
   --van-border-color: #fbc9ce;
   --van-padding-sm: 12px;
+  --van-tabbar-item-active-background-color: none;
 }
 </style>

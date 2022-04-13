@@ -8,7 +8,10 @@ module.exports = {
         "background-image": "url('./src/assets/images/background.jpeg')",
       },
       height: {
-        720: "45rem",
+        812: "50.75rem",
+      },
+      width: {
+        375: "23.4375rem",
       },
     },
   },
