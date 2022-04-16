@@ -19,26 +19,41 @@ const router = createRouter({
       path: "/launchScreen",
       name: "launchScreen",
       component: LaunchScreenVue,
+      meta: {
+        isShowTabBar: false,
+      },
     },
     {
       path: "/home",
       name: "home",
       component: HomeView,
+      meta: {
+        isShowTabBar: true,
+      },
     },
     {
       path: "/explore",
       name: "explore",
       component: ExploreView,
+      meta: {
+        isShowTabBar: true,
+      },
     },
     {
       path: "/collection",
       name: "collection",
       component: CollectionView,
+      meta: {
+        isShowTabBar: true,
+      },
     },
     {
       path: "/profile",
       name: "profile",
       component: ProfileView,
+      meta: {
+        isShowTabBar: true,
+      },
     },
   ],
 });

@@ -68,7 +68,6 @@ onMounted(() => {
     click,
     observeDOM: true, // 开启 observe-dom 插件
   });
-  console.log(scrollX);
   /**
    * 如果开启了滚动前事件触发
    */

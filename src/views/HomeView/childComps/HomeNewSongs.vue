@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import loginApi from "@/service/modules/loginApi";
 import { isArray } from "@vue/shared";
-import TheScroll from "../../../components/common/TheScroll.vue";
+import TheScroll from "../../../components/common/TheScroll/TheScroll.vue";
 const { test } = loginApi;
 let picUrl = ref<string[]>([]);
 
