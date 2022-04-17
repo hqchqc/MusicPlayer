@@ -7,7 +7,7 @@ let timeout: number;
 
 onBeforeMount(() => {
   timeout = setTimeout(() => {
-    router.push("/home");
+    router.push("/login");
   }, 2000);
 });
 

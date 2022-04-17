@@ -4,8 +4,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "launch-screen": "url('./src/assets/images/launch-screen.png')",
+        "launch-screen": "url('./src/assets/images/launchScreen.png')",
         "background-image": "url('./src/assets/images/background.jpeg')",
+        "login-mode": "url(./src/assets/images/loginBg.png)",
       },
       height: {
         812: "50.75rem",

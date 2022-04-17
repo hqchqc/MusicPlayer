@@ -8,6 +8,7 @@ import { useRoute } from "vue-router";
 const themeVars = {
   tabbarHeight: "4.9375rem",
   swipeIndicatorSize: "0.5rem",
+  buttonDefaultBorderColor: "#e8e8e8",
 };
 
 const route = useRoute();
@@ -45,7 +46,13 @@ watch(
 :root {
   --van-primary-color: #fb233b;
   --van-border-color: #fbc9ce;
-  --van-padding-sm: 12px;
+  --van-padding-sm: 0.75rem;
   --van-tabbar-item-active-background-color: none;
+}
+.van-button {
+  --van-button-border-radius: 12px;
+}
+.van-nav-bar .van-icon {
+  color: #121212 !important;
 }
 </style>

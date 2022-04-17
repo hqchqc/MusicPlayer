@@ -7,9 +7,13 @@ const CollectionView = () =>
   import("@/views/CollectionView/CollectionView.vue");
 const HomeView = () => import("@/views/HomeView/HomeView.vue");
 const ProfileView = () => import("@/views/ProfileView/ProfileView.vue");
+const LoginScreenVue = () => import("@/views/LoginScreen/LoginScreen.vue");
+const LoginPhone = () =>
+  import("@/views/LoginScreen/childComps/LoginPhone.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
   routes: [
     {
       path: "/",
@@ -19,6 +23,22 @@ const router = createRouter({
       path: "/launchScreen",
       name: "launchScreen",
       component: LaunchScreenVue,
+      meta: {
+        isShowTabBar: false,
+      },
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginScreenVue,
+      meta: {
+        isShowTabBar: false,
+      },
+    },
+    {
+      path: "/login/phone",
+      name: "loginPhone",
+      component: LoginPhone,
       meta: {
         isShowTabBar: false,
       },
