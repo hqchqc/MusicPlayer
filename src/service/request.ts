@@ -8,13 +8,11 @@ import showCodeMessage from "./code";
 import { formatJsonToUrlParams, type instanceObject } from "@/utils/format";
 import { Notify } from "vant";
 
-interface RequestArrayType {
-  [key: string]: string;
-}
-
-interface RetryRequest {
+interface RequestType {
   code: number;
-  [key: string]: RequestArrayType[] | number;
+  data: {
+    [key: string]: string;
+  };
 }
 
 const BASE_PREFIX = "https://netease-cloud-music-d9t45hc1f-hqchqc.vercel.app/";
@@ -63,7 +61,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 const service = {
-  get: <T = RetryRequest>(url: string, data?: object): Promise<T> =>
+  get: <T = RequestType>(url: string, data?: object): Promise<T> =>
     axiosInstance.get(url, { params: data }),
   // get<T = any>(url: string, data?: any): Promise<T> {
   //   return axiosInstance.get(url, data);

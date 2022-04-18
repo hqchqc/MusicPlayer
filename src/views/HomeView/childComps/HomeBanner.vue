@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import loginApi from "@/service/modules/loginApi";
+import homeApi from "@/service/modules/homeApi";
 import { isArray } from "@vue/shared";
 import { onBeforeMount, ref } from "vue";
-const { postVerification } = loginApi;
+const { postVerification } = homeApi;
 let banner = ref<string[]>([]);
 
 onBeforeMount(async () => {

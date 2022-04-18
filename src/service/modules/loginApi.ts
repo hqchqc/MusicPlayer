@@ -1,17 +1,28 @@
 import service from "../request";
 
 const loginApi = {
-  // 验证登录实例
-  postVerification: () => service.get(`/banner?type=1`),
-  // ss
-  test: () => service.get(`/personalized/newsong`),
-
-  // 登录
+  // 获取验证码
   getLoginCaptcha: (phone: string) =>
     service.get(`/captcha/sent?phone=${phone}`),
 
-  loginIn: (phone: string, captcha: string) => {
-    service.get(`/login/cellphone?phone=${phone}&captcha=${captcha}`);
+  // 通过验证码登录
+  loginInByCaptcha: (phone: string, captcha: string) => {
+    return service.get(`/login/cellphone?phone=${phone}&captcha=${captcha}`);
+  },
+
+  // 获取生成二维码的key
+  getQrCodeKey: () => {
+    return service.get(`/login/qr/key`);
+  },
+
+  // 获取生成二维码
+  getQrCode: (key: string) => {
+    return service.get(`/login/qr/create?key=${key}&qrimg=true`);
+  },
+
+  // 二维码状态轮询
+  getQrCodeStatus: (key: string) => {
+    return service.get(`/login/qr/check?key=${key}`);
   },
 };
 

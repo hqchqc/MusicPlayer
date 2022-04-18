@@ -12,12 +12,13 @@ declare module 'vue' {
     VanDivider: typeof import('vant/es')['Divider']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
-    VanIcon: typeof import('vant/es')['Icon']
+    VanIcon: typeof import("vant/es")["Icon"];
     VanNavBar: typeof import('vant/es')['NavBar']
+    VanPopup: typeof import('vant/es')['Popup']
     VanRate: typeof import("vant/es")["Rate"];
     VanSlider: typeof import("vant/es")["Slider"];
-    VanSwipe: typeof import('vant/es')['Swipe']
-    VanSwipeItem: typeof import('vant/es')['SwipeItem']
+    VanSwipe: typeof import("vant/es")["Swipe"];
+    VanSwipeItem: typeof import("vant/es")["SwipeItem"];
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
   }

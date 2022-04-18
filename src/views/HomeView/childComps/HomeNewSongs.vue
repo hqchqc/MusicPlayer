@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import loginApi from "@/service/modules/loginApi";
 import { isArray } from "@vue/shared";
 import TheScroll from "../../../components/common/TheScroll/TheScroll.vue";
-const { test } = loginApi;
+import homeApi from "@/service/modules/homeApi";
+const { test } = homeApi;
 let picUrl = ref<string[]>([]);
 
 onMounted(async () => {

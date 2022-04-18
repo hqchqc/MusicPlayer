@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import IconSvg from "../../components/common/IconSvg/IconSvg.vue";
+import LoginQrCode from "./childComps/LoginQrCode.vue";
 </script>
 
 <template>
@@ -16,9 +17,7 @@ import IconSvg from "../../components/common/IconSvg/IconSvg.vue";
         </van-button>
       </div>
       <div class="mt-4 mb-2">
-        <van-button size="large">
-          <icon-svg icon-class="erweima" /> 二维码登录
-        </van-button>
+        <login-qr-code />
       </div>
 
       <van-divider>or</van-divider>
