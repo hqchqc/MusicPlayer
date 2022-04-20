@@ -5,6 +5,7 @@ declare interface codeMessageMapTypes {
   404: string;
   405: string;
   500: string;
+  503: string;
   [key: string]: string;
 }
 
@@ -15,6 +16,7 @@ const codeMessageMap: codeMessageMapTypes = {
   404: "[404]:请求路径错误",
   405: "[405]:请求方法错误",
   500: "[500]:服务器错误",
+  503: "[503]:验证码错误",
 };
 
 const showCodeMessage = (code: number | string): string => {

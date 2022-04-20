@@ -10,6 +10,8 @@ import { Notify } from "vant";
 
 interface RequestType {
   code: number;
+  message: string;
+  msg: string;
   data: {
     [key: string]: string;
   };

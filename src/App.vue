@@ -55,4 +55,10 @@ watch(
 .van-nav-bar .van-icon {
   color: #121212 !important;
 }
+.van-notify {
+  width: 23.4375rem !important;
+  margin: auto;
+  position: relative !important;
+  top: calc((100vh - 812px) / 2) !important;
+}
 </style>

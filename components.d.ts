@@ -9,16 +9,18 @@ declare module 'vue' {
     TheTabBar: typeof import('./src/components/content/TheTabBar/TheTabBar.vue')['default']
     VanButton: typeof import('vant/es')['Button']
     VanConfigProvider: typeof import('vant/es')['ConfigProvider']
+    VanCountDown: typeof import('vant/es')['CountDown']
     VanDivider: typeof import('vant/es')['Divider']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
     VanIcon: typeof import("vant/es")["Icon"];
     VanNavBar: typeof import('vant/es')['NavBar']
+    VanNotify: typeof import('vant/es')['Notify']
     VanPopup: typeof import('vant/es')['Popup']
     VanRate: typeof import("vant/es")["Rate"];
     VanSlider: typeof import("vant/es")["Slider"];
-    VanSwipe: typeof import("vant/es")["Swipe"];
-    VanSwipeItem: typeof import("vant/es")["SwipeItem"];
+    VanSwipe: typeof import('vant/es')['Swipe']
+    VanSwipeItem: typeof import('vant/es')['SwipeItem']
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
   }

@@ -2,20 +2,36 @@
 import { ref } from "vue";
 import IconSvg from "../../../components/common/IconSvg/IconSvg.vue";
 import loginApi from "@/service/modules/loginApi";
+import { Notify } from "vant";
+import { useRouter } from "vue-router";
 const { getLoginCaptcha, loginInByCaptcha } = loginApi;
 const tel = ref("");
 const sms = ref("");
+const isShowSendBtn = ref(true);
+const router = useRouter();
+
 const handleBack = () => {
   history.back();
 };
 const handleSubmit = async () => {
   const msg = await loginInByCaptcha(tel.value, sms.value);
-  console.log(msg, "login");
+  if (msg.code === 200) {
+    Notify({ type: "success", message: "登录成功！" });
+    router.push("/home");
+  } else {
+    Notify({ type: "danger", message: msg.message });
+  }
 };
 
 const handleCaptcha = async () => {
   const msg = await getLoginCaptcha(tel.value);
-  console.log(msg, "code");
+  if (msg.code === 200) {
+    Notify({ type: "success", message: "验证码已发送，请注意查收！" });
+  } else {
+    Notify({ type: "danger", message: msg.message });
+  }
+
+  isShowSendBtn.value = false;
 };
 
 // 校验函数返回 true 表示校验通过，false 表示不通过
@@ -24,7 +40,11 @@ const handleValidator = (val: string) => {
 };
 
 const handleLoginValidator = () => {
-  return !(tel.value && sms.value);
+  return !(handleValidator(tel.value) && sms.value);
+};
+
+const handleFinish = () => {
+  isShowSendBtn.value = true;
 };
 </script>
 
@@ -55,19 +75,31 @@ const handleLoginValidator = () => {
         <van-field
           v-model="sms"
           center
-          clearable
           placeholder="请输入短信验证码"
           :rules="[{ required: true, message: '请填写短信验证码' }]"
         >
           <template #left-icon><icon-svg icon-class="yanzhengma" /></template>
           <template #button>
             <van-button
+              v-if="isShowSendBtn"
               size="small"
               type="primary"
               @click="handleCaptcha"
               :disabled="!handleValidator(tel)"
               >发送验证码</van-button
             >
+            <van-count-down
+              v-else
+              time="5000"
+              format="(ss秒)后重新发送"
+              @finish="handleFinish"
+            >
+              <template #default="timeData">
+                <span class="text-red-300">
+                  ({{ timeData.seconds }}秒)后重新发送
+                </span>
+              </template>
+            </van-count-down>
           </template>
         </van-field>
 
