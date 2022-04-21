@@ -23,11 +23,13 @@ import LoginQrCode from "./childComps/LoginQrCode.vue";
       <van-divider>or</van-divider>
 
       <div>
-        <van-button size="large" type="primary">注册</van-button>
+        <van-button size="large" type="primary" to="/register/phone"
+          >注册</van-button
+        >
       </div>
 
       <div class="mt-4">
-        <van-button size="large">登录</van-button>
+        <van-button size="large" to="/home">登录</van-button>
       </div>
     </div>
   </div>

@@ -7,9 +7,11 @@ const CollectionView = () =>
   import("@/views/CollectionView/CollectionView.vue");
 const HomeView = () => import("@/views/HomeView/HomeView.vue");
 const ProfileView = () => import("@/views/ProfileView/ProfileView.vue");
-const LoginScreenVue = () => import("@/views/LoginScreen/LoginScreen.vue");
+const LoginScreen = () => import("@/views/LoginScreen/LoginScreen.vue");
 const LoginPhone = () =>
   import("@/views/LoginScreen/childComps/LoginPhone.vue");
+const RegisterPhone = () =>
+  import("@/views/LoginScreen/childComps/RegisterPhone.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,7 +32,7 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: LoginScreenVue,
+      component: LoginScreen,
       meta: {
         isShowTabBar: false,
       },
@@ -39,6 +41,14 @@ const router = createRouter({
       path: "/login/phone",
       name: "loginPhone",
       component: LoginPhone,
+      meta: {
+        isShowTabBar: false,
+      },
+    },
+    {
+      path: "/register/phone",
+      name: "registerPhone",
+      component: RegisterPhone,
       meta: {
         isShowTabBar: false,
       },
