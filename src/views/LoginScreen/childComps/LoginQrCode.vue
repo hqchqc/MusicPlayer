@@ -5,7 +5,7 @@ import { ref } from "vue";
 const isShow = ref(false);
 const imgSrc = ref("");
 
-const { getQrCodeKey, getQrCode, getQrCodeStatus } = loginApi;
+const { getQrCodeKey, getQrCode } = loginApi;
 
 const handleQrCode = async () => {
   isShow.value = true;
