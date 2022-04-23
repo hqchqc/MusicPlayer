@@ -20,7 +20,7 @@ import LoginQrCode from "./childComps/LoginQrCode.vue";
         <login-qr-code />
       </div>
 
-      <van-divider> or </van-divider>
+      <van-divider>or</van-divider>
 
       <div>
         <van-button size="large" type="primary" to="/register/phone"
