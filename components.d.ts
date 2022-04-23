@@ -7,18 +7,14 @@ declare module 'vue' {
     IconSvg: typeof import('./src/components/common/IconSvg/IconSvg.vue')['default']
     TheScroll: typeof import('./src/components/common/TheScroll/TheScroll.vue')['default']
     TheTabBar: typeof import('./src/components/content/TheTabBar/TheTabBar.vue')['default']
-    VanButton: typeof import('vant/es')['Button']
+    VanButton: typeof import("vant/es")["Button"];
     VanConfigProvider: typeof import('vant/es')['ConfigProvider']
-    VanCountDown: typeof import('vant/es')['CountDown']
-    VanDivider: typeof import('vant/es')['Divider']
-    VanField: typeof import('vant/es')['Field']
-    VanForm: typeof import('vant/es')['Form']
-    VanIcon: typeof import("vant/es")["Icon"];
-    VanNavBar: typeof import('vant/es')['NavBar']
-    VanNotify: typeof import('vant/es')['Notify']
-    VanPopup: typeof import('vant/es')['Popup']
-    VanRate: typeof import("vant/es")["Rate"];
-    VanSlider: typeof import("vant/es")["Slider"];
+    VanCountDown: typeof import("vant/es")["CountDown"];
+    VanDivider: typeof import("vant/es")["Divider"];
+    VanField: typeof import("vant/es")["Field"];
+    VanForm: typeof import("vant/es")["Form"];
+    VanNavBar: typeof import("vant/es")["NavBar"];
+    VanPopup: typeof import("vant/es")["Popup"];
     VanSwipe: typeof import('vant/es')['Swipe']
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
     VanTabbar: typeof import('vant/es')['Tabbar']
