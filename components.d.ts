@@ -2,24 +2,25 @@
 // We suggest you to commit this file into source control
 // Read more: https://github.com/vuejs/vue-next/pull/3399
 
-declare module 'vue' {
+declare module "vue" {
   export interface GlobalComponents {
-    IconSvg: typeof import('./src/components/common/IconSvg/IconSvg.vue')['default']
-    TheScroll: typeof import('./src/components/common/TheScroll/TheScroll.vue')['default']
-    TheTabBar: typeof import('./src/components/content/TheTabBar/TheTabBar.vue')['default']
+    IconSvg: typeof import("./src/components/common/IconSvg/IconSvg.vue")["default"];
+    TheScroll: typeof import("./src/components/common/TheScroll/TheScroll.vue")["default"];
+    TheTabBar: typeof import("./src/components/content/TheTabBar/TheTabBar.vue")["default"];
     VanButton: typeof import("vant/es")["Button"];
-    VanConfigProvider: typeof import('vant/es')['ConfigProvider']
+    VanConfigProvider: typeof import("vant/es")["ConfigProvider"];
     VanCountDown: typeof import("vant/es")["CountDown"];
     VanDivider: typeof import("vant/es")["Divider"];
     VanField: typeof import("vant/es")["Field"];
     VanForm: typeof import("vant/es")["Form"];
     VanNavBar: typeof import("vant/es")["NavBar"];
+    VanOverlay: typeof import("vant/es")["Overlay"];
     VanPopup: typeof import("vant/es")["Popup"];
-    VanSwipe: typeof import('vant/es')['Swipe']
-    VanSwipeItem: typeof import('vant/es')['SwipeItem']
-    VanTabbar: typeof import('vant/es')['Tabbar']
-    VanTabbarItem: typeof import('vant/es')['TabbarItem']
+    VanSwipe: typeof import("vant/es")["Swipe"];
+    VanSwipeItem: typeof import("vant/es")["SwipeItem"];
+    VanTabbar: typeof import("vant/es")["Tabbar"];
+    VanTabbarItem: typeof import("vant/es")["TabbarItem"];
   }
 }
 
-export { }
+export {};

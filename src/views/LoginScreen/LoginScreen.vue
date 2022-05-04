@@ -6,9 +6,9 @@ import LoginQrCode from "./childComps/LoginQrCode.vue";
 <template>
   <div class="bg-login-mode relative h-812">
     <div class="absolute top-80 w-72 ml-11 text-center">
-      <span class="relative text-2xl font-bold"
-        >Find the best music from around the world</span
-      >
+      <span class="relative text-2xl font-bold">
+        Find the best music from around the world
+      </span>
     </div>
     <div class="relative top-1/2 ml-6 mr-6">
       <div>
@@ -23,9 +23,9 @@ import LoginQrCode from "./childComps/LoginQrCode.vue";
       <van-divider>or</van-divider>
 
       <div>
-        <van-button size="large" type="primary" to="/register/phone"
-          >注册</van-button
-        >
+        <van-button size="large" type="primary" to="/register/phone">
+          注册
+        </van-button>
       </div>
 
       <div class="mt-4">
