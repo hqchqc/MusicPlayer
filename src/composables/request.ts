@@ -18,12 +18,6 @@ const useRequest = createFetch({
     beforeFetch({ options }) {
       // const state = useGlobalState()
 
-      // NOTE: 在线 mock api 使用，你不需要下面这段
-      options.headers = Object.assign(options.headers || {}, {
-        'app-token':
-          '$2a$10$oWYgEw/X1hj9BbvejQOud.xFezq5wP8H7NGkVA.4HcChK928Z2nja',
-      })
-
       // if (RequestAuthKey && state.value.token) {
       //   options.headers = Object.assign(options.headers || {}, {
       //     [RequestAuthKey]: state.value.token,
@@ -73,8 +67,7 @@ const useRequest = createFetch({
     },
   },
   fetchOptions: {
-    mode: 'cors',
-    // credentials: RequestWithCookie ? 'include' : 'same-origin',
+    mode: 'no-cors',
   },
 })
 

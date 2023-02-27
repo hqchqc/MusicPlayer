@@ -33,6 +33,7 @@ const themeOverrides: GlobalThemeOverrides = {
     caretColor: 'white',
     colorFocus: '#e33e3e',
     placeholderColor: '#f19f9f',
+    textColor: 'white',
   },
 }
 </script>
