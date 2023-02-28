@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const fetchSearch = async () => {
-  const { execute } = usePost('/search/default')
-  await execute()
-}
+// const fetchSearch = async () => {
+//   const { execute } = usePost('/search/default')
+//   await execute()
+// }
 
-onMounted(() => fetchSearch())
+// onMounted(() => fetchSearch())
 </script>
 
 <template>
