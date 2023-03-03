@@ -18,5 +18,6 @@ declare module '@vue/runtime-core' {
     TheFooter: typeof import('./components/TheFooter.vue')['default']
     TheHeader: typeof import('./components/TheHeader.vue')['default']
     TheInput: typeof import('./components/TheInput.vue')['default']
+    TheNav: typeof import('./components/TheNav.vue')['default']
   }
 }
