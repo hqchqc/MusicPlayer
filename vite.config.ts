@@ -40,6 +40,10 @@ export default defineConfig({
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
       extensions: ['vue', 'md'],
+      extendRoute(route) {
+        if (route.path === '/')
+          return { ...route, redirect: 'spotting' }
+      },
     }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
