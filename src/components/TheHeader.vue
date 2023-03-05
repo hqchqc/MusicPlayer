@@ -5,6 +5,10 @@ import vipPic from '~/assets/vip.png'
 import { useRouteStore } from '~/stores/route'
 const router = useRouter()
 const route = useRouteStore()
+
+const { searchPlaceholder } = defineModel<{
+  searchPlaceholder: string
+}>()
 </script>
 
 <template>
@@ -29,7 +33,7 @@ const route = useRouteStore()
           </template>
         </NButton>
 
-        <NInput size="small" round placeholder="浪漫血液-林俊杰" class="ml-3 bg-[#e33e3e] ">
+        <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] ">
           <template #prefix>
             <div i-carbon-search class="color-[#f8cfcf]" />
           </template>

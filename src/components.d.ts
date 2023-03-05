@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Components: typeof import('./components/index.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NInput: typeof import('naive-ui')['NInput']
@@ -18,6 +19,6 @@ declare module '@vue/runtime-core' {
     TheFooter: typeof import('./components/TheFooter.vue')['default']
     TheHeader: typeof import('./components/TheHeader.vue')['default']
     TheInput: typeof import('./components/TheInput.vue')['default']
-    TheNav: typeof import('./components/TheNav/index.vue')['default']
+    TheNav: typeof import('./components/TheNav.vue')['default']
   }
 }

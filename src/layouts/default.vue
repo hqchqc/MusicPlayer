@@ -1,10 +1,14 @@
 <script setup lang="ts">
-// const fetchSearch = async () => {
-//   const { execute } = usePost('/search/default')
-//   await execute()
-// }
+import { NAV_LIST } from './config'
+const searchPlaceholder = ref('')
 
-// onMounted(() => fetchSearch())
+const fetchSearch = async () => {
+  const { data, execute } = usePost<{ realkeyword: string }>('search/default')
+  await execute()
+  searchPlaceholder.value = data.value?.realkeyword || ''
+}
+
+onMounted(() => fetchSearch())
 </script>
 
 <template>
@@ -12,10 +16,10 @@
     <TheBackground>
       <div class="flex items-center justify-center h-full">
         <div class="w-5xl h-2xl border">
-          <TheHeader />
+          <TheHeader :search-placeholder="searchPlaceholder" />
 
           <div class="flex h-full">
-            <TheNav />
+            <TheNav :nav-list="NAV_LIST" />
             <RouterView />
           </div>
         </div>
