@@ -2,8 +2,16 @@
 import { storeToRefs } from 'pinia'
 import { NAV_LIST } from './config'
 import { useNavStore } from '~/stores/nav'
+import { useRouteStore } from '~/stores/route'
+const router = useRouter()
+const route = useRouteStore()
 const nav = useNavStore()
 const { savedNavIndex } = storeToRefs(nav)
+watchEffect(() => {
+  nav.setNavIndex(NAV_LIST.findIndex(item => item.navPath === router.currentRoute.value.path))
+  route.setBackSkip()
+  route.setForwardSkip()
+})
 </script>
 
 <template>
