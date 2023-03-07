@@ -3,7 +3,7 @@ import { type UserModule } from '~/types'
 
 // Setup Pinia
 // https://pinia.vuejs.org/
-export const install: UserModule = ({ isClient, initialState, app }) => {
+export const install: UserModule = ({ isClient, initialState, app, router }) => {
   const pinia = createPinia()
   app.use(pinia)
   // Refer to
@@ -14,4 +14,11 @@ export const install: UserModule = ({ isClient, initialState, app }) => {
 
   else
     initialState.pinia = pinia.state.value
+
+  router.beforeEach((to, from, next) => {
+    if (typeof window === 'undefined')
+      return
+    // perform the (user-implemented) store action to fill the store's state
+    next()
+  })
 }
