@@ -5,7 +5,7 @@ import { createFetch, isObject } from '@vueuse/core'
 
 const baseUrl = import.meta.env.VITE_BASE_URL
 
-const router = useRouter()
+const router = useRouter
 
 // config
 const RequestTimeout = 5000
@@ -42,7 +42,7 @@ const useRequest = createFetch({
         // }
         // appMessage('warning', '登陆已经过期')
         setTimeout(() => {
-          router.push('/login')
+          router().push('/login')
         }, 1500)
         data = null
       }
