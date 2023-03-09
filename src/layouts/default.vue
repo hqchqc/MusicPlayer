@@ -8,7 +8,9 @@ const fetchSearch = async () => {
   searchPlaceholder.value = data.value?.realkeyword || ''
 }
 
-onMounted(() => fetchSearch())
+onMounted(() => {
+  fetchSearch()
+})
 </script>
 
 <template>

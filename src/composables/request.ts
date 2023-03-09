@@ -27,6 +27,9 @@ const useRequest = createFetch({
       return { options }
     },
     afterFetch({ data, response }) {
+      window.$message.success(
+        'Cause you walked hand in hand With another man in my place',
+      )
       // const state = useGlobalState()
       const status = data.code
 
@@ -46,10 +49,11 @@ const useRequest = createFetch({
         }, 1500)
         data = null
       }
-      else if (status === 1000) {
+      else if (status === 800 || status === 801) {
         console.error(data.message)
-        // appMessage('warning', data.message)
-        data = null
+      }
+      else if (status === 803) {
+        console.log('success')
       }
       else if (status) {
         // console.log('出现未全局拦截错误')
@@ -57,7 +61,6 @@ const useRequest = createFetch({
       }
 
       // import.meta.env.MODE === 'development' && console.log('result:', data)
-
       return { data, response }
     },
     onFetchError({ data, error }) {
