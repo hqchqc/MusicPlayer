@@ -6,6 +6,7 @@ import defaultImg from '~/assets/defaultImg.svg'
 import { useRouteStore } from '~/stores/route'
 const router = useRouter()
 const route = useRouteStore()
+const user = useUserStore()
 const showModal = ref(false)
 const qrImg = ref('')
 
@@ -20,47 +21,82 @@ const fetchQrKey = async () => {
 }
 
 const fetchQrImg = async (unikey: string) => {
-  const { data, execute } = usePost<{ qrurl: string; qrimg: string }>(`login/qr/create?key=${unikey}&qrimg=true`)
+  const { data, execute } = usePost<{ qrimg: string }>(`login/qr/create?key=${unikey}&qrimg=true`)
   await execute()
   return data.value?.qrimg || ''
 }
 
 const fetchCheckStatus = async (unikey: string) => {
-  const { data, execute } = usePost(`login/qr/check?key=${unikey}&timestamp=${Date.now()}`)
+  const { data, execute } = usePost<{ code: number; cookie: string; message: string }>(`login/qr/check?key=${unikey}&timestamp=${Date.now()}`)
   await execute()
-  console.log('data.value', data.value)
   return data.value
 }
 
 const fetchLoginStatus = async (cookie: string) => {
-  const { data, execute } = usePost(`login/status?timestamp=${Date.now()}`, { cookie })
+  const { data, execute } = usePost<{ profile: { avatarUrl: string; userId: number; nickname: string } }>(`login/status?timestamp=${Date.now()}`, { cookie })
   await execute()
-  return Boolean(data.value?.data.profile)
+  return data.value
 }
 
 const handleLogin = async () => {
   showModal.value = true
-  let timer: NodeJS.Timeout | null = null
+  let timer: NodeJS.Timeout
   const cookie = useStorage('cookie', '')
-  const isLogin = await fetchLoginStatus(cookie.value)
-  const key = await fetchQrKey()
-  qrImg.value = await fetchQrImg(key)
+  const loginInfo = await fetchLoginStatus(cookie.value)
+  if (loginInfo?.profile) {
+    // 已经登录
+    window.$message.warning('您已登录,请勿重复登录')
+    const { nickname = '', avatarUrl = '', userId = 0 } = loginInfo.profile
+    user.setUserInfo({
+      nickname,
+      avatarUrl,
+      userId,
+    })
+  }
+  else {
+    // 没有登录
+    const key = await fetchQrKey()
+    qrImg.value = await fetchQrImg(key)
 
-  timer = setInterval(async () => {
-    const statusRes = await fetchCheckStatus(key)
-    console.log('statusRes', statusRes)
-    if (statusRes.code === 800) {
-      console.log('二维码已过期,请重新获取')
-      clearInterval(timer)
-    }
-    if (statusRes.code === 803) {
-      clearInterval(timer)
-      console.log('授权成功！')
-      await fetchLoginStatus(statusRes.cookie)
-      useStorage('cookie', statusRes.cookie)
-    }
-  }, 3000)
+    timer = setInterval(async () => {
+      const statusRes = await fetchCheckStatus(key)
+      if (statusRes?.code === 800) {
+        clearInterval(timer)
+        window.$message.warning(statusRes.message)
+      }
+      if (statusRes?.code === 803) {
+        clearInterval(timer)
+        const loginInfo = await fetchLoginStatus(statusRes.cookie)
+        if (loginInfo?.profile) {
+          const { nickname = '', avatarUrl = '', userId = 0 } = loginInfo.profile
+          user.setUserInfo({
+            nickname,
+            avatarUrl,
+            userId,
+          })
+          cookie.value = statusRes.cookie
+          window.$message.success(statusRes.message)
+        }
+        else {
+          window.$message.warning('登录失败~')
+        }
+      }
+    }, 3000)
+  }
 }
+
+onMounted(async () => {
+  const cookie = useStorage('cookie', '')
+  const loginInfo = await fetchLoginStatus(cookie.value)
+  if (loginInfo?.profile) {
+    const { nickname = '', avatarUrl = '', userId = 0 } = loginInfo.profile
+    user.setUserInfo({
+      nickname,
+      avatarUrl,
+      userId,
+    })
+  }
+})
 </script>
 
 <template>
@@ -95,8 +131,8 @@ const handleLogin = async () => {
 
     <!-- 右侧头像 -->
     <div class="absolute right-5 left-221 cursor-pointer" @click="handleLogin">
-      <img :src="avatarOut" class="w-7 h-7 rounded-[50%] inline-block ">
-      <span class="color-[#fbd9d9] px-1 text-xs tracking-tighter">未登录</span>
+      <img :src="user.userInfo.avatarUrl || avatarOut" class="w-7 h-7 rounded-[50%] inline-block ">
+      <span class="color-[#fbd9d9] px-1 text-xs tracking-tighter">{{ user.userInfo.nickname || '未登录' }}</span>
       <img :src="vipPic" class="w-9 inline-block">
     </div>
 

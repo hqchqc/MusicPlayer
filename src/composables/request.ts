@@ -5,8 +5,6 @@ import { createFetch, isObject } from '@vueuse/core'
 
 const baseUrl = import.meta.env.VITE_BASE_URL
 
-const router = useRouter
-
 // config
 const RequestTimeout = 5000
 
@@ -27,40 +25,21 @@ const useRequest = createFetch({
       return { options }
     },
     afterFetch({ data, response }) {
-      window.$message.success(
-        'Cause you walked hand in hand With another man in my place',
-      )
-      // const state = useGlobalState()
       const status = data.code
 
       // NOTE: 拦截返回，需要根据具体返回修改
-      if (status === 200) {
+      if (status === 200 || status === 800 || status === 801 || status === 803) {
+        data = data.data || data
+      }
+      else if (!status) {
         data = data.data || {}
-      }
-      else if (status === 401) {
-        // state.value = {
-        //   token: '',
-        //   name: '',
-        //   avatar: '',
-        // }
-        // appMessage('warning', '登陆已经过期')
-        setTimeout(() => {
-          router().push('/login')
-        }, 1500)
-        data = null
-      }
-      else if (status === 800 || status === 801) {
-        console.error(data.message)
-      }
-      else if (status === 803) {
-        console.log('success')
       }
       else if (status) {
         // console.log('出现未全局拦截错误')
+        window.$message.error('出现未全局拦截错误')
         data = undefined
       }
 
-      // import.meta.env.MODE === 'development' && console.log('result:', data)
       return { data, response }
     },
     onFetchError({ data, error }) {

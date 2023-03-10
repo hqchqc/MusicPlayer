@@ -1,14 +1,20 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
+interface UserInfo {
+  avatarUrl: string
+  nickname: string
+  userId: number
+}
+
 export const useUserStore = defineStore('user', () => {
   /**
    * Current name of the user.
    */
-  const savedName = ref('')
-  const previousNames = ref(new Set<string>())
-
-  const usedNames = computed(() => Array.from(previousNames.value))
-  const otherNames = computed(() => usedNames.value.filter(name => name !== savedName.value))
+  const userInfo = reactive<UserInfo>({
+    avatarUrl: '',
+    nickname: '',
+    userId: 0,
+  })
 
   /**
    * Changes the current name of the user and saves the one that was used
@@ -16,17 +22,16 @@ export const useUserStore = defineStore('user', () => {
    *
    * @param name - new name to set
    */
-  function setNewName(name: string) {
-    if (savedName.value)
-      previousNames.value.add(savedName.value)
-
-    savedName.value = name
+  function setUserInfo(setInfo: UserInfo) {
+    const { avatarUrl, nickname, userId } = setInfo
+    userInfo.avatarUrl = avatarUrl
+    userInfo.nickname = nickname
+    userInfo.userId = userId
   }
 
   return {
-    setNewName,
-    otherNames,
-    savedName,
+    userInfo,
+    setUserInfo,
   }
 })
 
