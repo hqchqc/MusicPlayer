@@ -4,8 +4,8 @@ import avatarOut from '~/assets/avatar_out.png'
 import vipPic from '~/assets/vip.png'
 import defaultImg from '~/assets/defaultImg.svg'
 import { useRouteStore } from '~/stores/route'
-import { fetchCheckStatus, fetchLoginStatus, fetchQrImg, fetchQrKey } from '~/network/header'
-import type { LoginStatus } from '~/types/header'
+import { fetchCheckStatus, fetchHotSearch, fetchLoginStatus, fetchQrImg, fetchQrKey, fetchSearchKeyWord } from '~/network/header'
+import type { HotSearch, LoginStatus } from '~/types/header'
 const router = useRouter()
 const route = useRouteStore()
 const user = useUserStore()
@@ -13,6 +13,9 @@ const showModal = ref(false)
 const qrImg = ref('')
 const loginInfo = ref<LoginStatus>()
 const loading = ref(false)
+const hotSearch = ref<HotSearch[]>()
+const inputValue = ref('')
+const searchLoading = ref(true)
 let timer: NodeJS.Timeout
 
 const { searchPlaceholder } = defineModel<{
@@ -70,6 +73,18 @@ const handleLogin = async () => {
 
 const handleClose = () => timer && clearInterval(timer)
 
+const handleSearch = async () => {
+  const hotSearchList = await fetchHotSearch()
+  hotSearch.value = hotSearchList as HotSearch[]
+  searchLoading.value = false
+}
+
+const handleWordSearch = async (word: string) => {
+  inputValue.value = word
+  await fetchSearchKeyWord(word)
+  // console.log('msg', msg)
+}
+
 onMounted(async () => {
   const cookie = useStorage('cookie', '')
   const loginStatus = await fetchLoginStatus(cookie.value)
@@ -107,11 +122,43 @@ onMounted(async () => {
           </template>
         </NButton>
 
-        <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] ">
-          <template #prefix>
-            <div i-carbon-search class="color-[#f8cfcf]" />
+        <n-popover trigger="click" placement="bottom" :show-arrow="false" scrollable class="max-h-[32rem]">
+          <template #trigger>
+            <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] " :value="inputValue" @click="handleSearch">
+              <template #prefix>
+                <div i-carbon-search class="color-[#f8cfcf]" />
+              </template>
+            </NInput>
           </template>
-        </NInput>
+          <div class="w-88 pt-4">
+            <n-text strong depth="1" class="color-[#666666] mx-5 text-sm">
+              热搜榜
+            </n-text>
+
+            <n-spin :show="searchLoading">
+              <div class="border-t mt-3">
+                <div v-for="(searchItem, index) in hotSearch" :key="searchItem.searchWord" class="h-14 flex align-middle cursor-pointer hover:bg-[#f2f2f2] transition-none delay-99999" @click="handleWordSearch(searchItem.searchWord)">
+                  <div class="flex items-center align-middle ">
+                    <div class="w-10 text-base ml-5" :class="index <= 2 ? 'color-[#fd5757] text-lg' : 'color-[#e1e1e1] text-base '">
+                      <span>{{ index + 1 }}</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <div>
+                        <span :class="index <= 2 ? 'text-xs font-700' : 'text-xs'">{{ searchItem.searchWord }}</span>
+                        <span class="text-sm mx-2 color-[#dadada]">{{ searchItem.score }}</span>
+                        <img v-show="searchItem.iconUrl" :src="searchItem.iconUrl" alt="icon" class="w-6 inline-block">
+                      </div>
+
+                      <div>
+                        <span class="text-xs color-[#999999] text-ellipsis">{{ searchItem.content }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </n-spin>
+          </div>
+        </n-popover>
       </div>
     </div>
 

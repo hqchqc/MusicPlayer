@@ -1,4 +1,4 @@
-import type { CheckStatus, LoginStatus, QrImg, QrKey } from '~/types/header'
+import type { CheckStatus, HotSearch, LoginStatus, QrImg, QrKey } from '~/types/header'
 
 // 1. 获取请求二维码key
 export const fetchQrKey = async () => {
@@ -24,6 +24,20 @@ export const fetchCheckStatus = async (unikey: string) => {
 // 4. 检查登录状态
 export const fetchLoginStatus = async (cookie: string) => {
   const { data, execute } = usePost<LoginStatus>(`login/status?timestamp=${Date.now()}`, { cookie })
+  await execute()
+  return data.value
+}
+
+// 5. 获取热搜列表(详细)
+export const fetchHotSearch = async () => {
+  const { data, execute } = usePost<HotSearch[]>('search/hot/detail')
+  await execute()
+  return data.value
+}
+
+// 6. 搜索
+export const fetchSearchKeyWord = async (keywords: string) => {
+  const { data, execute } = usePost(`cloudsearch?keywords=${keywords}`)
   await execute()
   return data.value
 }

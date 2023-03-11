@@ -35,6 +35,16 @@ const themeOverrides: GlobalThemeOverrides = {
     placeholderColor: '#f19f9f',
     textColor: 'white',
   },
+  Popover: {
+    space: '20px',
+    padding: '0',
+  },
+  Tabs: {
+    barColor: '#ec4141',
+    tabTextColorActiveBar: 'black',
+    tabTextColorHoverBar: 'black',
+    tabFontWeightActive: '900',
+  },
 }
 </script>
 

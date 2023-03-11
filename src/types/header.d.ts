@@ -21,3 +21,12 @@ interface Profile {
 export interface LoginStatus {
   profile: Profile
 }
+
+export interface HotSearch{
+  content: string
+  searchWord: string
+  iconUrl: string
+  alg: string
+  score: number
+  iconType: 0 | 1
+}
