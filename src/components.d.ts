@@ -14,6 +14,8 @@ declare module '@vue/runtime-core' {
     NInput: typeof import('naive-ui')['NInput']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NModal: typeof import('naive-ui')['NModal']
+    NProgress: typeof import('naive-ui')['NProgress']
+    NSpin: typeof import('naive-ui')['NSpin']
     README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -25,5 +27,6 @@ declare module '@vue/runtime-core' {
     TheMessage: typeof import('./components/TheMessage.vue')['default']
     TheModal: typeof import('./components/TheModal.vue')['default']
     TheNav: typeof import('./components/TheNav.vue')['default']
+    ThePlayer: typeof import('./components/ThePlayer.vue')['default']
   }
 }

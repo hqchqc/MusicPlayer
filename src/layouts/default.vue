@@ -20,9 +20,13 @@ onMounted(() => {
         <div class="w-5xl h-2xl border">
           <TheHeader :search-placeholder="searchPlaceholder" />
 
-          <div class="flex h-full">
+          <div class="flex h-[calc(42rem-4.5rem-3.75rem)]">
             <TheNav :nav-list="NAV_LIST" />
             <RouterView />
+          </div>
+
+          <div class="h-18 border-y bg-white">
+            <ThePlayer />
           </div>
         </div>
       </div>

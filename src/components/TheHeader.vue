@@ -4,49 +4,29 @@ import avatarOut from '~/assets/avatar_out.png'
 import vipPic from '~/assets/vip.png'
 import defaultImg from '~/assets/defaultImg.svg'
 import { useRouteStore } from '~/stores/route'
+import { fetchCheckStatus, fetchLoginStatus, fetchQrImg, fetchQrKey } from '~/network/header'
+import type { LoginStatus } from '~/types/header'
 const router = useRouter()
 const route = useRouteStore()
 const user = useUserStore()
 const showModal = ref(false)
 const qrImg = ref('')
+const loginInfo = ref<LoginStatus>()
+const loading = ref(false)
+let timer: NodeJS.Timeout
 
 const { searchPlaceholder } = defineModel<{
   searchPlaceholder: string
 }>()
 
-const fetchQrKey = async () => {
-  const { data, execute } = usePost<{ unikey: string }>('login/qr/key')
-  await execute()
-  return data.value?.unikey || ''
-}
-
-const fetchQrImg = async (unikey: string) => {
-  const { data, execute } = usePost<{ qrimg: string }>(`login/qr/create?key=${unikey}&qrimg=true`)
-  await execute()
-  return data.value?.qrimg || ''
-}
-
-const fetchCheckStatus = async (unikey: string) => {
-  const { data, execute } = usePost<{ code: number; cookie: string; message: string }>(`login/qr/check?key=${unikey}&timestamp=${Date.now()}`)
-  await execute()
-  return data.value
-}
-
-const fetchLoginStatus = async (cookie: string) => {
-  const { data, execute } = usePost<{ profile: { avatarUrl: string; userId: number; nickname: string } }>(`login/status?timestamp=${Date.now()}`, { cookie })
-  await execute()
-  return data.value
-}
-
 const handleLogin = async () => {
-  showModal.value = true
-  let timer: NodeJS.Timeout
   const cookie = useStorage('cookie', '')
-  const loginInfo = await fetchLoginStatus(cookie.value)
-  if (loginInfo?.profile) {
+
+  if (loginInfo.value?.profile) {
     // 已经登录
+    showModal.value = false
     window.$message.warning('您已登录,请勿重复登录')
-    const { nickname = '', avatarUrl = '', userId = 0 } = loginInfo.profile
+    const { nickname = '', avatarUrl = '', userId = 0 } = loginInfo.value.profile
     user.setUserInfo({
       nickname,
       avatarUrl,
@@ -54,9 +34,12 @@ const handleLogin = async () => {
     })
   }
   else {
+    showModal.value = true
+    loading.value = true
     // 没有登录
     const key = await fetchQrKey()
     qrImg.value = await fetchQrImg(key)
+    loading.value = false
 
     timer = setInterval(async () => {
       const statusRes = await fetchCheckStatus(key)
@@ -85,11 +68,14 @@ const handleLogin = async () => {
   }
 }
 
+const handleClose = () => timer && clearInterval(timer)
+
 onMounted(async () => {
   const cookie = useStorage('cookie', '')
-  const loginInfo = await fetchLoginStatus(cookie.value)
-  if (loginInfo?.profile) {
-    const { nickname = '', avatarUrl = '', userId = 0 } = loginInfo.profile
+  const loginStatus = await fetchLoginStatus(cookie.value)
+  loginInfo.value = loginStatus as LoginStatus
+  if (loginStatus?.profile) {
+    const { nickname = '', avatarUrl = '', userId = 0 } = loginStatus.profile
     user.setUserInfo({
       nickname,
       avatarUrl,
@@ -136,14 +122,16 @@ onMounted(async () => {
       <img :src="vipPic" class="w-9 inline-block">
     </div>
 
-    <n-modal v-model:show="showModal">
+    <n-modal v-model:show="showModal" :on-after-leave="handleClose">
       <div class="flex flex-col items-center align-middle p-5 bg-white">
         <h1>扫码登录</h1>
-        <n-image
-          class="w-40 h-40 p-4"
-          :placeholder="defaultImg"
-          :src="qrImg"
-        />
+        <n-spin :show="loading" stroke="#ec4141">
+          <n-image
+            class="w-40 h-40 p-4"
+            :placeholder="defaultImg"
+            :src="qrImg"
+          />
+        </n-spin>
         <span>使用网易云音乐APP扫码登录</span>
         <span class="mt-10">游客登录 >
         </span>
