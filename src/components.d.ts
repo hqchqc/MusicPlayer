@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     NButtonGroup: typeof import('naive-ui')['NButtonGroup']
     NCard: typeof import('naive-ui')['NCard']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NDataTable: typeof import('naive-ui')['NDataTable']
     NIcon: typeof import('naive-ui')['NIcon']
     NImage: typeof import('naive-ui')['NImage']
     NInput: typeof import('naive-ui')['NInput']
@@ -20,6 +21,7 @@ declare module '@vue/runtime-core' {
     NPopover: typeof import('naive-ui')['NPopover']
     NProgress: typeof import('naive-ui')['NProgress']
     NSpin: typeof import('naive-ui')['NSpin']
+    NTable: typeof import('naive-ui')['NTable']
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
     NText: typeof import('naive-ui')['NText']
@@ -35,5 +37,6 @@ declare module '@vue/runtime-core' {
     TheModal: typeof import('./components/TheModal.vue')['default']
     TheNav: typeof import('./components/TheNav.vue')['default']
     ThePlayer: typeof import('./components/ThePlayer.vue')['default']
+    TheTableAction: typeof import('./components/TheTableAction.vue')['default']
   }
 }

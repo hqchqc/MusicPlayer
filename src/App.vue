@@ -45,6 +45,18 @@ const themeOverrides: GlobalThemeOverrides = {
     tabTextColorHoverBar: 'black',
     tabFontWeightActive: '900',
   },
+  Spin: {
+    color: '#ec4141',
+  },
+  DataTable: {
+    thColor: 'white',
+    thPaddingMedium: '0 0 4px 8px',
+    thTextColor: '#888888',
+    tdColorHover: '#f2f2f3',
+    tdColorStriped: '#fafafa',
+    tdPaddingMedium: '8px',
+    tdTextColor: '#646464',
+  },
 }
 </script>
 

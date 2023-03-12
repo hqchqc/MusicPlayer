@@ -22,7 +22,7 @@ onMounted(() => {
 
           <div class="flex h-[calc(42rem-4.5rem-3.75rem)]">
             <TheNav :nav-list="NAV_LIST" />
-            <RouterView />
+            <RouterView class="w-[calc(100%-12.5rem)] bg-white h-full overflow-y-auto scrollbar" />
           </div>
 
           <div class="h-18 border-y bg-white">
@@ -33,3 +33,21 @@ onMounted(() => {
     </TheBackground>
   </main>
 </template>
+
+<style lang="css">
+.scrollbar::-webkit-scrollbar{
+  width:10px;
+  height:5px;
+}
+.scrollbar::-webkit-scrollbar-thumb{
+  height: 10px;
+  background: #e0e0e0;
+  border-radius:10px;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover{
+  background: #d4d4d4;
+}
+.scrollbar::-webkit-scrollbar-corner{
+  background: #179a16;
+}
+</style>

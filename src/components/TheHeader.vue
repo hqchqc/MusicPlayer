@@ -4,7 +4,7 @@ import avatarOut from '~/assets/avatar_out.png'
 import vipPic from '~/assets/vip.png'
 import defaultImg from '~/assets/defaultImg.svg'
 import { useRouteStore } from '~/stores/route'
-import { fetchCheckStatus, fetchHotSearch, fetchLoginStatus, fetchQrImg, fetchQrKey, fetchSearchKeyWord } from '~/network/header'
+import { fetchCheckStatus, fetchHotSearch, fetchLoginStatus, fetchQrImg, fetchQrKey } from '~/network/header'
 import type { HotSearch, LoginStatus } from '~/types/header'
 const router = useRouter()
 const route = useRouteStore()
@@ -81,8 +81,7 @@ const handleSearch = async () => {
 
 const handleWordSearch = async (word: string) => {
   inputValue.value = word
-  await fetchSearchKeyWord(word)
-  // console.log('msg', msg)
+  router.push(`/search?keyword=${word}`)
 }
 
 onMounted(async () => {
@@ -122,7 +121,7 @@ onMounted(async () => {
           </template>
         </NButton>
 
-        <n-popover trigger="click" placement="bottom" :show-arrow="false" scrollable class="max-h-[32rem]">
+        <n-popover trigger="click" placement="bottom" :show-arrow="false" scrollable class="max-h-[32rem] ">
           <template #trigger>
             <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] " :value="inputValue" @click="handleSearch">
               <template #prefix>
@@ -130,13 +129,13 @@ onMounted(async () => {
               </template>
             </NInput>
           </template>
-          <div class="w-88 pt-4">
+          <div class="w-88 pt-4 min-h-[30rem]">
             <n-text strong depth="1" class="color-[#666666] mx-5 text-sm">
               热搜榜
             </n-text>
 
             <n-spin :show="searchLoading">
-              <div class="border-t mt-3">
+              <div class="border-t mt-3 ">
                 <div v-for="(searchItem, index) in hotSearch" :key="searchItem.searchWord" class="h-14 flex align-middle cursor-pointer hover:bg-[#f2f2f2] transition-none delay-99999" @click="handleWordSearch(searchItem.searchWord)">
                   <div class="flex items-center align-middle ">
                     <div class="w-10 text-base ml-5" :class="index <= 2 ? 'color-[#fd5757] text-lg' : 'color-[#e1e1e1] text-base '">
@@ -172,7 +171,7 @@ onMounted(async () => {
     <n-modal v-model:show="showModal" :on-after-leave="handleClose">
       <div class="flex flex-col items-center align-middle p-5 bg-white">
         <h1>扫码登录</h1>
-        <n-spin :show="loading" stroke="#ec4141">
+        <n-spin :show="loading">
           <n-image
             class="w-40 h-40 p-4"
             :placeholder="defaultImg"
