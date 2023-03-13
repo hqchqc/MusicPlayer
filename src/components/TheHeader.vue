@@ -145,7 +145,7 @@ onMounted(async () => {
                       <div>
                         <span :class="index <= 2 ? 'text-xs font-700' : 'text-xs'">{{ searchItem.searchWord }}</span>
                         <span class="text-sm mx-2 color-[#dadada]">{{ searchItem.score }}</span>
-                        <img v-show="searchItem.iconUrl" :src="searchItem.iconUrl" alt="icon" class="w-6 inline-block">
+                        <img v-show="searchItem.iconUrl && searchItem.alg !== 'featured'" :src="searchItem.iconUrl" alt="icon" class="w-6 inline-block">
                       </div>
 
                       <div>

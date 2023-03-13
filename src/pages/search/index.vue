@@ -81,10 +81,9 @@ const columns: DataTableColumns<Song> = [
 ]
 
 const data = ref<Song[]>([])
+const tableLoading = ref(true)
 
 const pagination = reactive({
-  // 受控模式下的当前页
-  page: 1,
   // 总页数
   pageCount: 0,
   // 每页条数
@@ -93,27 +92,27 @@ const pagination = reactive({
   itemCount: 0,
 })
 
-const handlePageChange = (currentPage: number) => {
-  // console.log('currentPage', currentPage)
-  // if (!loadingRef.value) {
-  //   loadingRef.value = true
-  //   query(
-  //     currentPage,
-  //     paginationReactive.pageSize,
-  //     column1Reactive.sortOrder,
-  //     column2Reactive.filterOptionValues,
-  //   ).then((data) => {
-  //     dataRef.value = data.data
-  //     paginationReactive.page = currentPage
-  //     paginationReactive.pageCount = data.pageCount
-  //     paginationReactive.itemCount = data.total
-  //     loadingRef.value = false
-  //   })
-  // }
+const handlePageChange = async (currentPage: number) => {
+  if (!tableLoading.value) {
+    tableLoading.value = true
+    const msg = await fetchSearchKeyWord(keyword as string, pagination.pageSize, pagination.pageSize * (currentPage - 1))
+
+    const songList = msg?.result.songs.map(item => ({
+      title: item.name,
+      singer: item.ar?.[0]?.name,
+      albumInfo: item.al,
+      duration: item.dt,
+      pop: item.pop,
+    }))
+    data.value = songList as Song[]
+    totalCount.value = msg?.result.songCount || 0
+    pagination.itemCount = msg?.result.songCount || 0
+    tableLoading.value = false
+  }
 }
 
 onMounted(async () => {
-  const searchList = await fetchSearchKeyWord(keyword as string, pagination.pageSize, pagination.page - 1)
+  const searchList = await fetchSearchKeyWord(keyword as string, pagination.pageSize, 0)
   const songList = searchList?.result.songs.map(item => ({
     title: item.name,
     singer: item.ar?.[0]?.name,
@@ -125,6 +124,7 @@ onMounted(async () => {
   totalCount.value = searchList?.result.songCount || 0
   pagination.itemCount = searchList?.result.songCount || 0
   pagination.pageCount = Math.ceil((searchList?.result.songCount || 0) / pagination.pageSize)
+  tableLoading.value = false
 })
 </script>
 
@@ -161,6 +161,7 @@ onMounted(async () => {
 
             <n-data-table
               :columns="columns"
+              :loading="tableLoading"
               :data="data"
               :pagination="pagination"
               :single-column="true"
@@ -168,7 +169,7 @@ onMounted(async () => {
               :bottom-bordered="false"
               striped
               remote
-              class="mt-3 text-xs"
+              class="mt-5 text-xs song-table"
               @update:page="handlePageChange"
             />
           </div>
@@ -189,3 +190,12 @@ onMounted(async () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.song-table::v-deep(.n-data-table__pagination) {
+  justify-content: center;
+}
+.song-table::v-deep(.n-data-table__pagination) {
+  margin: 12px 0 12px 0;
+}
+</style>

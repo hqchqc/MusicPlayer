@@ -56,6 +56,19 @@ const themeOverrides: GlobalThemeOverrides = {
     tdColorStriped: '#fafafa',
     tdPaddingMedium: '8px',
     tdTextColor: '#646464',
+    loadingColor: '#ec4141',
+  },
+  Pagination: {
+    itemTextColor: '#666666',
+    itemTextColorActive: 'white',
+    itemColorActive: '#ec4141',
+    itemBorderActive: 'none',
+    itemColorHover: '#f5f5f5',
+    itemTextColorHover: '#313131',
+    itemBorderHover: 'none',
+    itemColorActiveHover: '#ec4141',
+    itemTextColorPressed: '#666666',
+    itemBorder: '#dcdcdc',
   },
 }
 </script>
