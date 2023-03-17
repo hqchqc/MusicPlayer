@@ -128,3 +128,12 @@ const handlePageChange = async (currentPage: number) => {
     @update:page="handlePageChange"
   />
 </template>
+
+<style scoped>
+.song-table::v-deep(.n-data-table__pagination) {
+  justify-content: center;
+}
+.song-table::v-deep(.n-data-table__pagination) {
+  margin: 12px 0 12px 0;
+}
+</style>

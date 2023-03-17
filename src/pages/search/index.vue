@@ -43,7 +43,7 @@ onMounted(async () => {
 
     <div class="mt-5">
       <n-tabs animated>
-        <n-tab-pane name="oasis" tab="单曲">
+        <n-tab-pane name="single" tab="单曲">
           <div class="mt-1">
             <SearchButton />
             <SearchTable :keyword="keyword as string" :table-data="songsList" />
@@ -65,12 +65,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.song-table::v-deep(.n-data-table__pagination) {
-  justify-content: center;
-}
-.song-table::v-deep(.n-data-table__pagination) {
-  margin: 12px 0 12px 0;
-}
-</style>
