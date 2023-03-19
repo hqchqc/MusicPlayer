@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { DataTableColumns, PaginationProps } from 'naive-ui'
+import type { SongListInfo, SongsListData } from '~/types/search'
 
 const { keyword = '', tableData, columns, loading, pagination } = defineProps<{
   keyword: string

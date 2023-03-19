@@ -1,22 +1,33 @@
 <script setup lang="ts">
-import type { ButtonProps } from 'naive-ui'
-type ButtonThemeOverrides = NonNullable<ButtonProps['themeOverrides']>
+import { buttonThemeOverrides } from '~/config/searchConfig'
+import type { SongsListData } from '~/types/search'
 
-const buttonThemeOverrides: ButtonThemeOverrides = {
-  textColorHover: '#303030',
-  textColorTextPressed: '#303030',
-  textColorPressed: '#303030',
-  textColorFocus: '#303030',
-  borderPressed: '#d9d9d9',
-  borderFocus: '#d9d9d9',
-  borderHover: '#d9d9d9',
-  rippleColor: '#f2f2f2',
+const { songsList } = defineProps<{
+  songsList: SongsListData
+}>()
+
+const showModal = ref(false)
+const player = usePlayerStore()
+
+const cancelCallback = () => {
+  window?.$message.success('Cancel')
+}
+
+const submitCallback = async () => {
+  player.setPlayList(songsList)
+  player.setPlayState('playing')
+
+  window?.$message.success('Submit')
+}
+
+const handlePlayAll = () => {
+  showModal.value = true
 }
 </script>
 
 <template>
   <n-button-group>
-    <NButton round color="#ec4141" class="bg-[#ec4141] pr-1">
+    <NButton round color="#ec4141" class="bg-[#ec4141] pr-1" @click="handlePlayAll">
       <template #icon>
         <div class="i-carbon-play-filled-alt" />
       </template>
@@ -35,6 +46,19 @@ const buttonThemeOverrides: ButtonThemeOverrides = {
     </template>
     下载全部
   </NButton>
+
+  <n-modal
+    v-model:show="showModal"
+    preset="dialog"
+    title="替换播放列表"
+    content="'播放全部'将会替换当前的播放列表,是否继续?"
+    positive-text="继续"
+    negative-text="取消"
+    :show-icon="false"
+    :positive-button-props="{ color: '#ec4141', textColor: 'black' }"
+    @positive-click="submitCallback"
+    @negative-click="cancelCallback"
+  />
 </template>
 
 <style lang="css">

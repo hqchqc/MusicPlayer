@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { fetchSearchKeyWord } from '~/network/header'
 import { columns, pagination } from '~/config/searchConfig'
+import type { SongsListData } from '~/types/search'
 
 defineOptions({
   name: 'SearchPage',
@@ -8,7 +9,7 @@ defineOptions({
 
 const router = useRouter()
 const { keyword = '' } = reactive(router.currentRoute.value.query)
-const songsList = ref<SongsListData>({
+const songsList = reactive<SongsListData>({
   totalCount: 0,
   songList: [],
 })
@@ -23,14 +24,14 @@ const fetchList = async (keyword: string, pageSize: number, offset: number) => {
     albumInfo: item.al,
     duration: item.dt,
     pop: item.pop,
+    id: item.id,
   })) || []
   loading.value = false
 
   pagination.itemCount = searchList?.result.songCount || 0
-  songsList.value = {
-    totalCount: searchList?.result.songCount || 0,
-    songList,
-  }
+
+  songsList.totalCount = searchList?.result.songCount || 0
+  songsList.songList = songList
 }
 
 onMounted(async () => await fetchList(keyword as string, 100, 0))
@@ -46,7 +47,7 @@ onMounted(async () => await fetchList(keyword as string, 100, 0))
       <n-tabs animated>
         <n-tab-pane name="single" tab="单曲">
           <div class="mt-1">
-            <SearchButton />
+            <SearchButton :songs-list="songsList" />
             <SearchTable
               :keyword="keyword as string"
               :table-data="songsList"

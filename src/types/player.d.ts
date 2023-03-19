@@ -1,0 +1,1 @@
+export type PlayState = 'pause' | 'playing' | 'disabled'

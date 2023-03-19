@@ -20,7 +20,7 @@ onMounted(() => {
         <div class="w-5xl h-2xl border">
           <TheHeader :search-placeholder="searchPlaceholder" />
 
-          <div class="flex h-[calc(42rem-4.5rem-3.75rem)]">
+          <div id="mainBox" class="relative overflow-x-hidden flex h-[calc(42rem-4.5rem-3.75rem)]">
             <TheNav :nav-list="NAV_LIST" />
             <RouterView class="w-[calc(100%-12.5rem)] bg-white h-full overflow-y-auto scrollbar" />
           </div>

@@ -31,7 +31,7 @@ export interface HotSearch {
   iconType: 0 | 1
 }
 
-interface SongsAl {
+export interface SongsAl {
   id: number
   name: string
 }

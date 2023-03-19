@@ -1,6 +1,8 @@
 import { NEllipsis, NProgress } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import type { ButtonProps, DataTableColumns } from 'naive-ui'
 import TheTableAction from '~/components/TheTableAction.vue'
+import type { SongListInfo } from '~/types/search'
+type ButtonThemeOverrides = NonNullable<ButtonProps['themeOverrides']>
 
 export const columns: DataTableColumns<SongListInfo> = [
   {
@@ -53,7 +55,7 @@ export const columns: DataTableColumns<SongListInfo> = [
       return h(
         NProgress, {
           type: 'line',
-          percentage: Number(row.pop),
+          percentage: row.pop,
           showIndicator: false,
           railColor: '#e5e5e5',
           color: '#cecece',
@@ -72,3 +74,14 @@ export const pagination = reactive({
   // 总条数
   itemCount: 0,
 })
+
+export const buttonThemeOverrides: ButtonThemeOverrides = {
+  textColorHover: '#303030',
+  textColorTextPressed: '#303030',
+  textColorPressed: '#303030',
+  textColorFocus: '#303030',
+  borderPressed: '#d9d9d9',
+  borderFocus: '#d9d9d9',
+  borderHover: '#d9d9d9',
+  rippleColor: '#f2f2f2',
+}
