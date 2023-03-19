@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { fetchSearchKeyWord } from '~/network/header'
+import { columns, pagination } from '~/config/searchConfig'
 
 defineOptions({
   name: 'SearchPage',
 })
 
 const router = useRouter()
-const { keyword = '' } = router.currentRoute.value.query
-const songsList = ref<any>({})
+const { keyword = '' } = reactive(router.currentRoute.value.query)
+const songsList = ref<SongsListData>({
+  totalCount: 0,
+  songList: [],
+})
+const loading = ref(false)
 
 const fetchList = async (keyword: string, pageSize: number, offset: number) => {
+  loading.value = true
   const searchList = await fetchSearchKeyWord(keyword, pageSize, offset)
   const songList = searchList?.result.songs.map(item => ({
     title: item.name,
@@ -17,22 +23,17 @@ const fetchList = async (keyword: string, pageSize: number, offset: number) => {
     albumInfo: item.al,
     duration: item.dt,
     pop: item.pop,
-  }))
-  return {
+  })) || []
+  loading.value = false
+
+  pagination.itemCount = searchList?.result.songCount || 0
+  songsList.value = {
     totalCount: searchList?.result.songCount || 0,
     songList,
   }
 }
 
-onMounted(async () => {
-  const msg = await fetchList(keyword as string, 100, 0)
-  songsList.value = msg
-  // data.value = songList as Song[]
-  // totalCount.value = searchList?.result.songCount || 0
-  // pagination.itemCount = searchList?.result.songCount || 0
-  // pagination.pageCount = Math.ceil((searchList?.result.songCount || 0) / pagination.pageSize)
-  // tableLoading.value = false
-})
+onMounted(async () => await fetchList(keyword as string, 100, 0))
 </script>
 
 <template>
@@ -46,7 +47,14 @@ onMounted(async () => {
         <n-tab-pane name="single" tab="单曲">
           <div class="mt-1">
             <SearchButton />
-            <SearchTable :keyword="keyword as string" :table-data="songsList" />
+            <SearchTable
+              :keyword="keyword as string"
+              :table-data="songsList"
+              :columns="columns"
+              :loading="loading"
+              :pagination="pagination"
+              @fetch-list="fetchList"
+            />
           </div>
         </n-tab-pane>
         <n-tab-pane name="the beatles" tab="歌手">
@@ -58,7 +66,7 @@ onMounted(async () => {
 
         <template #suffix>
           <div class="color-[#999999] text-xs">
-            找到 {{ songsList.totalCount }} 首单曲
+            找到 {{ songsList?.totalCount ?? 0 }} 首单曲
           </div>
         </template>
       </n-tabs>

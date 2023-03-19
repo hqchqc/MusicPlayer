@@ -16,6 +16,7 @@ const loading = ref(false)
 const hotSearch = ref<HotSearch[]>()
 const inputValue = ref('')
 const searchLoading = ref(true)
+const showPopover = ref(false)
 let timer: NodeJS.Timeout
 
 const { searchPlaceholder } = defineModel<{
@@ -74,12 +75,15 @@ const handleLogin = async () => {
 const handleClose = () => timer && clearInterval(timer)
 
 const handleSearch = async () => {
+  showPopover.value = true
+
   const hotSearchList = await fetchHotSearch()
   hotSearch.value = hotSearchList as HotSearch[]
   searchLoading.value = false
 }
 
 const handleWordSearch = async (word: string) => {
+  showPopover.value = false
   inputValue.value = word
   router.push(`/search?keyword=${word}`)
 }
@@ -121,7 +125,7 @@ onMounted(async () => {
           </template>
         </NButton>
 
-        <n-popover trigger="click" placement="bottom" :show-arrow="false" scrollable class="max-h-[32rem] ">
+        <n-popover trigger="click" placement="bottom" :show-arrow="false" :show="showPopover" scrollable class="max-h-[32rem]">
           <template #trigger>
             <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] " :value="inputValue" @click="handleSearch">
               <template #prefix>
