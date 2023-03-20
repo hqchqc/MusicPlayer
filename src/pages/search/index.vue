@@ -25,6 +25,7 @@ const fetchList = async (keyword: string, pageSize: number, offset: number) => {
     duration: item.dt,
     pop: item.pop,
     id: item.id,
+    isNeedVip: item.fee === 1,
   })) || []
   loading.value = false
 

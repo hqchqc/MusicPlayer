@@ -34,6 +34,7 @@ export interface HotSearch {
 export interface SongsAl {
   id: number
   name: string
+  picUrl: string
 }
 
 interface SongsAr {
@@ -48,6 +49,7 @@ export interface SongsInfo {
   ar: SongsAr[]
   dt: number
   pop: number
+  fee: number
 }
 
 interface SearchDetailInfo {

@@ -1,6 +1,7 @@
 import { NEllipsis, NProgress } from 'naive-ui'
 import type { ButtonProps, DataTableColumns } from 'naive-ui'
 import TheTableAction from '~/components/TheTableAction.vue'
+import SearchTableTitle from '~/components/search/SearchTableTitle.vue'
 import type { SongListInfo } from '~/types/search'
 type ButtonThemeOverrides = NonNullable<ButtonProps['themeOverrides']>
 
@@ -21,7 +22,7 @@ export const columns: DataTableColumns<SongListInfo> = [
     width: '35%',
     render(row) {
       return h (
-        NEllipsis, { style: 'max-width: 200px' }, { default: () => row.title },
+        SearchTableTitle, { title: row.title, isNeedVip: row.isNeedVip },
       )
     },
   },

@@ -1,4 +1,8 @@
-import type { SongsAl } from './header.d.ts'
+interface SongsAl {
+  id: number
+  name: string
+  picUrl: string
+}
 
 interface SongListInfo {
   title: string
@@ -7,6 +11,8 @@ interface SongListInfo {
   duration: number
   pop: number
   id: number
+  isNeedVip: boolean
+  url?: string
 }
 
 export interface SongsListData {
