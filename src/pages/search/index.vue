@@ -15,9 +15,9 @@ const songsList = reactive<SongsListData>({
 })
 const loading = ref(false)
 
-const fetchList = async (keyword: string, pageSize: number, offset: number) => {
+const fetchList = async (pageSize: number, offset: number) => {
   loading.value = true
-  const searchList = await fetchSearchKeyWord(keyword, pageSize, offset)
+  const searchList = await fetchSearchKeyWord(keyword as string, pageSize, offset)
   const songList = searchList?.result.songs.map(item => ({
     title: item.name,
     singer: item.ar?.[0]?.name,
@@ -35,7 +35,7 @@ const fetchList = async (keyword: string, pageSize: number, offset: number) => {
   songsList.songList = songList
 }
 
-onMounted(async () => await fetchList(keyword as string, 100, 0))
+onMounted(async () => await fetchList(100, 0))
 </script>
 
 <template>
@@ -50,7 +50,6 @@ onMounted(async () => await fetchList(keyword as string, 100, 0))
           <div class="mt-1">
             <SearchButton :songs-list="songsList" />
             <SearchTable
-              :keyword="keyword as string"
               :table-data="songsList"
               :columns="columns"
               :loading="loading"
@@ -75,3 +74,21 @@ onMounted(async () => await fetchList(keyword as string, 100, 0))
     </div>
   </div>
 </template>
+
+<style>
+.scrollbar::-webkit-scrollbar{
+  width:10px;
+  height:5px;
+}
+.scrollbar::-webkit-scrollbar-thumb{
+  height: 10px;
+  background: #e0e0e0;
+  border-radius:10px;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover{
+  background: #d4d4d4;
+}
+.scrollbar::-webkit-scrollbar-corner{
+  background: #179a16;
+}
+</style>

@@ -34,7 +34,7 @@ onMounted(() => {
   </main>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .scrollbar::-webkit-scrollbar{
   width:10px;
   height:5px;

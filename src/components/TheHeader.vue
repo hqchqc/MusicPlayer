@@ -83,7 +83,6 @@ const handleSearch = async () => {
 }
 
 const handleWordSearch = async (word: string) => {
-  showPopover.value = false
   inputValue.value = word
   router.push(`/search?keyword=${word}`)
 }
@@ -127,7 +126,7 @@ onMounted(async () => {
 
         <n-popover trigger="click" placement="bottom" :show-arrow="false" :show="showPopover" scrollable class="max-h-[32rem]">
           <template #trigger>
-            <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] " :value="inputValue" @click="handleSearch">
+            <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] " :value="inputValue" @click="handleSearch" @blur="showPopover = false">
               <template #prefix>
                 <div i-carbon-search class="color-[#f8cfcf]" />
               </template>
@@ -149,7 +148,7 @@ onMounted(async () => {
                       <div>
                         <span :class="index <= 2 ? 'text-xs font-700' : 'text-xs'">{{ searchItem.searchWord }}</span>
                         <span class="text-sm mx-2 color-[#dadada]">{{ searchItem.score }}</span>
-                        <img v-show="searchItem.iconUrl && searchItem.alg !== 'featured'" :src="searchItem.iconUrl" alt="icon" class="w-6 inline-block">
+                        <img v-show="searchItem.iconUrl && searchItem.alg !== 'featured'" :src="searchItem.iconUrl" alt="icon" class="h-3 inline-block">
                       </div>
 
                       <div>

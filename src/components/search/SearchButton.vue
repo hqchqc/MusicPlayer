@@ -9,15 +9,9 @@ const { songsList } = defineProps<{
 const showModal = ref(false)
 const player = usePlayerStore()
 
-const cancelCallback = () => {
-  window?.$message.success('Cancel')
-}
-
 const submitCallback = async () => {
   player.setPlayList(songsList)
-  player.setPlayState('playing')
-
-  window?.$message.success('Submit')
+  player.playSing()
 }
 
 const handlePlayAll = () => {
@@ -26,7 +20,7 @@ const handlePlayAll = () => {
 </script>
 
 <template>
-  <n-button-group>
+  <n-button-group class="mb-5">
     <NButton round color="#ec4141" class="bg-[#ec4141] pr-1" @click="handlePlayAll">
       <template #icon>
         <div class="i-carbon-play-filled-alt" />
@@ -57,7 +51,6 @@ const handlePlayAll = () => {
     :show-icon="false"
     :positive-button-props="{ color: '#ec4141', textColor: 'black' }"
     @positive-click="submitCallback"
-    @negative-click="cancelCallback"
   />
 </template>
 

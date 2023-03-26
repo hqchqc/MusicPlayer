@@ -6,7 +6,7 @@ import { createFetch, isObject } from '@vueuse/core'
 const baseUrl = import.meta.env.VITE_BASE_URL
 
 // config
-const RequestTimeout = 5000
+const RequestTimeout = 10000
 
 const useRequest = createFetch({
   baseUrl,
@@ -66,7 +66,9 @@ export function useGet<T = unknown>(
     const _url = unref(url)
     const _query = unref(query)
     const queryString = isObject(_query)
+      // eslint-disable-next-line no-mixed-operators
       ? stringifyQuery(_query as LocationQueryRaw)
+      // eslint-disable-next-line no-mixed-operators
       : _query || ''
     return `${_url}${queryString ? '?' : ''}${queryString}`
   })

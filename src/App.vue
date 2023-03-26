@@ -70,6 +70,9 @@ const themeOverrides: GlobalThemeOverrides = {
     itemTextColorPressed: '#666666',
     itemBorder: '#dcdcdc',
   },
+  Drawer: {
+    headerPadding: '12px 24px 6px 28px',
+  },
 }
 </script>
 
