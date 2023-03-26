@@ -53,6 +53,15 @@ export const usePlayerStore = defineStore('player', () => {
     playState.value = 'playing'
   }
 
+  function playSingByDb(row: SongListInfo) {
+    const isInPlayList = playlist.songList.find(item => item.id === row.id)
+
+    if (!isInPlayList)
+      playlist.songList.unshift(row)
+
+    playSing()
+  }
+
   function setPlayList(newPlayList: SongsListData) {
     playlist.totalCount = newPlayList.totalCount
     playlist.songList = newPlayList.songList
@@ -71,6 +80,7 @@ export const usePlayerStore = defineStore('player', () => {
     playState,
     currentPlayInfo,
     playSing,
+    playSingByDb,
     setPlayList,
     setPlayState,
     setAudioInstance,

@@ -129,7 +129,7 @@ onMounted(() => {
       <template #header>
         <span class="font-bold">当前播放</span>
         <div class="mt-2 text-xs color-[#d5d5d5]">
-          总95首
+          总{{ playlist.songList.length }}首
         </div>
       </template>
 

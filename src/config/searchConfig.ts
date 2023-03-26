@@ -1,8 +1,8 @@
 import { NEllipsis, NProgress } from 'naive-ui'
 import type { ButtonProps, DataTableColumns } from 'naive-ui'
-import TheTableAction from '~/components/TheTableAction.vue'
-import SearchTableTitle from '~/components/search/SearchTableTitle.vue'
 import type { SongListInfo } from '~/types/search'
+import SearchTableTitle from '~/components/search/SearchTableTitle.vue'
+import SearchTableAction from '~/components/search/SearchTableAction.vue'
 type ButtonThemeOverrides = NonNullable<ButtonProps['themeOverrides']>
 
 export const columns: DataTableColumns<SongListInfo> = [
@@ -10,9 +10,9 @@ export const columns: DataTableColumns<SongListInfo> = [
     title: '',
     key: 'no',
     width: '12%',
-    render(_, index) {
+    render(row, index) {
       return h (
-        TheTableAction, { index: index + 1 },
+        SearchTableAction, { row, index: index + 1 },
       )
     },
   },
@@ -22,7 +22,7 @@ export const columns: DataTableColumns<SongListInfo> = [
     width: '35%',
     render(row) {
       return h (
-        SearchTableTitle, { title: row.title, isNeedVip: row.isNeedVip },
+        SearchTableTitle, { row },
       )
     },
   },
@@ -77,7 +77,6 @@ export const pagination = reactive({
 })
 
 export const buttonThemeOverrides: ButtonThemeOverrides = {
-  textColorHover: '#303030',
   textColorTextPressed: '#303030',
   textColorPressed: '#303030',
   textColorFocus: '#303030',

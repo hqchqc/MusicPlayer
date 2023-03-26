@@ -1,11 +1,17 @@
 import type { DataTableColumns } from 'naive-ui'
 import type { SongListInfo } from '~/types/search'
 import SearchTableTitle from '~/components/search/SearchTableTitle.vue'
+import PlayListState from '~/components/player/PlayListState.vue'
 
 export const columns: DataTableColumns<SongListInfo> = [
   {
     title: '',
     key: 'no',
+    render(row) {
+      return h(
+        PlayListState, { row },
+      )
+    },
   },
   {
     title: () => null,
@@ -13,7 +19,7 @@ export const columns: DataTableColumns<SongListInfo> = [
     width: 50,
     render(row) {
       return h (
-        SearchTableTitle, { title: row.title, isNeedVip: row.isNeedVip },
+        SearchTableTitle, { row },
       )
     },
   },

@@ -87,6 +87,10 @@ const handleWordSearch = async (word: string) => {
   router.push(`/search?keyword=${word}`)
 }
 
+const handleEnter = () => {
+  router.push(`/search?keyword=${inputValue.value}`)
+}
+
 onMounted(async () => {
   const cookie = useStorage('cookie', '')
   const loginStatus = await fetchLoginStatus(cookie.value)
@@ -126,7 +130,11 @@ onMounted(async () => {
 
         <n-popover trigger="click" placement="bottom" :show-arrow="false" :show="showPopover" scrollable class="max-h-[32rem]">
           <template #trigger>
-            <NInput size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] " :value="inputValue" @click="handleSearch" @blur="showPopover = false">
+            <NInput
+              v-model:value="inputValue" size="small" round :placeholder="searchPlaceholder" class="ml-3 bg-[#e33e3e] "
+              @click="handleSearch" @blur="showPopover = false"
+              @keyup.enter="handleEnter"
+            >
               <template #prefix>
                 <div i-carbon-search class="color-[#f8cfcf]" />
               </template>

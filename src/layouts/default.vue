@@ -26,7 +26,7 @@ onMounted(() => {
           </div>
 
           <div class="h-18 border-y bg-white">
-            <ThePlayer />
+            <Player />
           </div>
         </div>
       </div>

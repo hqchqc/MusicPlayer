@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const router = useRouter()
-const { keyword = '' } = reactive(router.currentRoute.value.query)
+const queryValue = computed(() => router.currentRoute.value.query)
 const songsList = reactive<SongsListData>({
   totalCount: 0,
   songList: [],
@@ -17,7 +17,7 @@ const loading = ref(false)
 
 const fetchList = async (pageSize: number, offset: number) => {
   loading.value = true
-  const searchList = await fetchSearchKeyWord(keyword as string, pageSize, offset)
+  const searchList = await fetchSearchKeyWord(queryValue.value.keyword as string, pageSize, offset)
   const songList = searchList?.result.songs.map(item => ({
     title: item.name,
     singer: item.ar?.[0]?.name,
@@ -36,12 +36,14 @@ const fetchList = async (pageSize: number, offset: number) => {
 }
 
 onMounted(async () => await fetchList(100, 0))
+
+watch(queryValue, () => fetchList(100, 0))
 </script>
 
 <template>
   <div class="pt-5 px-8">
     <h1 class="text-lg font-bold">
-      搜索 {{ keyword }}
+      搜索 {{ queryValue.keyword }}
     </h1>
 
     <div class="mt-5">
@@ -58,10 +60,10 @@ onMounted(async () => await fetchList(100, 0))
             />
           </div>
         </n-tab-pane>
-        <n-tab-pane name="the beatles" tab="歌手">
+        <n-tab-pane name="the beatles" tab="歌手" disabled>
           歌手
         </n-tab-pane>
-        <n-tab-pane name="jay chou" tab="视频">
+        <n-tab-pane name="jay chou" tab="视频" disabled>
           视频
         </n-tab-pane>
 

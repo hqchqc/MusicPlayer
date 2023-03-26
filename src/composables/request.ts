@@ -28,7 +28,7 @@ const useRequest = createFetch({
       const status = data.code
 
       // NOTE: 拦截返回，需要根据具体返回修改
-      if (status === 200 || status === 800 || status === 801 || status === 803) {
+      if (status === 200 || status === 800 || status === 801 || status === 803 || status === 802) {
         data = data.data || data
       }
       else if (!status) {
