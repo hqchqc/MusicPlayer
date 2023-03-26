@@ -11,6 +11,8 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     NButton: typeof import('naive-ui')['NButton']
     NButtonGroup: typeof import('naive-ui')['NButtonGroup']
+    NCarousel: typeof import('naive-ui')['NCarousel']
+    NCarouselItem: typeof import('naive-ui')['NCarouselItem']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDataTable: typeof import('naive-ui')['NDataTable']
     NDrawer: typeof import('naive-ui')['NDrawer']
@@ -36,6 +38,9 @@ declare module '@vue/runtime-core' {
     SearchTable: typeof import('./components/search/SearchTable.vue')['default']
     SearchTableAction: typeof import('./components/search/SearchTableAction.vue')['default']
     SearchTableTitle: typeof import('./components/search/SearchTableTitle.vue')['default']
+    SpottingCarousel: typeof import('./components/spotting/SpottingCarousel.vue')['default']
+    SpottingImg: typeof import('./components/spotting/SpottingImg.vue')['default']
+    SpottingRecommend: typeof import('./components/spotting/SpottingRecommend.vue')['default']
     TheBackground: typeof import('./components/TheBackground.vue')['default']
     TheFooter: typeof import('./components/TheFooter.vue')['default']
     TheHeader: typeof import('./components/TheHeader.vue')['default']

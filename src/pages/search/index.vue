@@ -60,10 +60,10 @@ watch(queryValue, () => fetchList(100, 0))
             />
           </div>
         </n-tab-pane>
-        <n-tab-pane name="the beatles" tab="歌手" disabled>
+        <n-tab-pane name="singer" tab="歌手" disabled>
           歌手
         </n-tab-pane>
-        <n-tab-pane name="jay chou" tab="视频" disabled>
+        <n-tab-pane name="video" tab="视频" disabled>
           视频
         </n-tab-pane>
 

@@ -1,4 +1,4 @@
-import type { CheckStatus, HotSearch, LoginStatus, QrImg, QrKey, SearchList } from '~/types/header'
+import type { CheckStatus, HotSearch, LoginStatus, QrImg, QrKey, SearchList, UserListInfo } from '~/types/header'
 
 // 1. 获取请求二维码key
 export const fetchQrKey = async () => {
@@ -38,6 +38,13 @@ export const fetchHotSearch = async () => {
 // 6. 搜索
 export const fetchSearchKeyWord = async (keywords: string, limit = 30, offset = 0, type = 1) => {
   const { data, execute } = usePost<SearchList>(`cloudsearch?keywords=${keywords}&type=${type}&limit=${limit}&offset=${offset}`)
+  await execute()
+  return data.value
+}
+
+// 7. 获取用户歌单
+export const fetchUserPlayList = async (uid = 1302970235) => {
+  const { data, execute } = usePost<UserListInfo>(`user/playlist?uid=${uid}`)
   await execute()
   return data.value
 }

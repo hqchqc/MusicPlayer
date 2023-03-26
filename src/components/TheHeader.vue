@@ -62,6 +62,7 @@ const handleLogin = async () => {
             userId,
           })
           cookie.value = statusRes.cookie
+          showModal.value = false
           window.$message.success(statusRes.message)
         }
         else {
@@ -88,7 +89,10 @@ const handleWordSearch = async (word: string) => {
 }
 
 const handleEnter = () => {
-  router.push(`/search?keyword=${inputValue.value}`)
+  if (inputValue.value)
+    router.push(`/search?keyword=${inputValue.value}`)
+  else
+    router.push(`/search?keyword=${searchPlaceholder.value}`)
 }
 
 onMounted(async () => {

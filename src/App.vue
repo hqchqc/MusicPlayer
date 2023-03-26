@@ -73,6 +73,10 @@ const themeOverrides: GlobalThemeOverrides = {
   Drawer: {
     headerPadding: '12px 24px 6px 28px',
   },
+  Carousel: {
+    dotColorActive: '#ec4141',
+    dotColor: '#e5e5e5',
+  },
 }
 </script>
 

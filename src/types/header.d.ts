@@ -61,3 +61,15 @@ export interface SearchList {
   code: number
   result: SearchDetailInfo
 }
+
+export interface UserPlaylist {
+  name: string
+  coverImgUrl: string
+  id: number
+  playCount: number
+}
+
+export interface UserListInfo {
+  playlist: UserPlaylist[]
+  code: number
+}
