@@ -48,10 +48,10 @@ onMounted(() => {
         />
       </div>
       <div class="ml-3 flex flex-col items-start">
-        <div class="text-base">
+        <div class="text-base truncate max-w-40">
           {{ currentPlayInfo.title }}
         </div>
-        <div class="text-sm">
+        <div class="text-sm truncate max-w-40">
           {{ currentPlayInfo.singer }}
         </div>
       </div>

@@ -44,22 +44,43 @@ export const usePlayerStore = defineStore('player', () => {
 
     const playIndex = mode === 'current' ? index : mode === 'after' ? index + 1 : index - 1
 
-    const msg = await fetchSongUrl(playlist.songList[playIndex].id)
+    if (playIndex >= 0) {
+      const msg = await fetchSongUrl(playlist.songList[playIndex].id)
+      Object.assign(currentPlayInfo, {
+        ...playlist.songList[playIndex],
+        url: Array.isArray(msg) ? msg?.[0]?.url : `https://music.163.com/song/media/outer/url?id=${playlist.songList[playIndex].id}.mp3`,
+      })
+      playState.value = 'playing'
+    }
+    else {
+      window.$message.info('没有歌曲啦~')
+    }
+  }
 
-    Object.assign(currentPlayInfo, {
-      ...playlist.songList[playIndex],
-      url: Array.isArray(msg) ? msg?.[0]?.url : `https://music.163.com/song/media/outer/url?id=${playlist.songList[playIndex].id}.mp3`,
-    })
+  // 存在于当前的播放列表中 需要提前播放
+  async function playSingById(id: number) {
+    playState.value = 'pause'
+    const index = playlist.songList.findIndex(item => item.id === id)
+
+    if (index !== -1) {
+      const msg = await fetchSongUrl(id)
+
+      Object.assign(currentPlayInfo, {
+        ...playlist.songList[index],
+        url: Array.isArray(msg) ? msg?.[0]?.url : `https://music.163.com/song/media/outer/url?id=${playlist.songList[index].id}.mp3`,
+      })
+    }
     playState.value = 'playing'
   }
 
   function playSingByDb(row: SongListInfo) {
     const isInPlayList = playlist.songList.find(item => item.id === row.id)
 
-    if (!isInPlayList)
+    if (!isInPlayList) {
       playlist.songList.unshift(row)
-
-    playSing()
+      playSing()
+    }
+    else { playSingById(row.id) }
   }
 
   function setPlayList(newPlayList: SongsListData) {
