@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     NTag: typeof import('naive-ui')['NTag']
     NText: typeof import('naive-ui')['NText']
     Player: typeof import('./components/player/Player.vue')['default']
+    PlayListDetail: typeof import('./components/playlist/PlayListDetail.vue')['default']
     PlayListState: typeof import('./components/player/PlayListState.vue')['default']
     README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
