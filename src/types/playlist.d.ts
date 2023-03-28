@@ -1,12 +1,11 @@
-interface SongListInfo {
-  title: string
-  singer: string
-  albumInfo: SongsAl
-  duration: number
-  pop: number
+export interface SongsInfo {
+  name: string
   id: number
-  isNeedVip: boolean
-  url?: string
+  al: SongsAl
+  ar: SongsAr[]
+  dt: number
+  pop: number
+  fee: number
 }
 
 interface CreatorInfo{
@@ -22,11 +21,12 @@ export interface PlayList {
   shareCount: number
   trackCount: number
   coverImgUrl: string
-  tracks: SongListInfo[]
+  tracks: SongsInfo[]
   creator: CreatorInfo
   createTime: number
   tags: string[]
   subscribedCount: number
+  commentCount: number
 }
 
 export interface PlayListInfo {

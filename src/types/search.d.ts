@@ -4,6 +4,10 @@ interface SongsAl {
   picUrl: string
 }
 
+interface Ar {
+  name: string
+}
+
 interface SongListInfo {
   title: string
   singer: string
@@ -13,6 +17,9 @@ interface SongListInfo {
   id: number
   isNeedVip: boolean
   url?: string
+  name?: string
+  ar?: Ar[]
+  dt?: number
 }
 
 export interface SongsListData {
