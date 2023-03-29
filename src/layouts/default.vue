@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { NAV_LIST } from './config'
+import { NAV_LIST } from '~/config/navConfig'
+
 const searchPlaceholder = ref('')
 
 const fetchSearch = async () => {

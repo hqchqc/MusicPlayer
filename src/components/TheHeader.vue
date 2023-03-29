@@ -26,6 +26,9 @@ const { searchPlaceholder } = defineModel<{
 const handleLogin = async () => {
   const cookie = useStorage('cookie', '')
 
+  const loginStatus = await fetchLoginStatus(cookie.value)
+  loginInfo.value = loginStatus as LoginStatus
+
   if (loginInfo.value?.profile) {
     // 已经登录
     showModal.value = false
@@ -93,6 +96,12 @@ const handleEnter = () => {
     router.push(`/search?keyword=${inputValue.value}`)
   else
     router.push(`/search?keyword=${searchPlaceholder.value}`)
+}
+
+const handleTouristLogin = async () => {
+  // const msg = await fetchTouristLogin()
+  // console.log('msg', msg)
+  window.$message.info('开发中哦🎶🎶🎶')
 }
 
 onMounted(async () => {
@@ -194,7 +203,7 @@ onMounted(async () => {
           />
         </n-spin>
         <span>使用网易云音乐APP扫码登录</span>
-        <span class="mt-10">游客登录 >
+        <span class="mt-10" @click="handleTouristLogin">游客登录 >
         </span>
       </div>
     </n-modal>

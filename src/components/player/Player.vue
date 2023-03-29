@@ -80,7 +80,7 @@ onMounted(() => {
           i-carbon-play-filled
           class="w-[2.5em] h-[2.5em] cursor-pointer"
           :class="pauseIconStyle"
-          @click="player.setPlayState('playing')"
+          @click="player.playlist.totalCount && player.setPlayState('playing')"
         />
         <div
           i-carbon-skip-forward-filled

@@ -43,8 +43,15 @@ export const fetchSearchKeyWord = async (keywords: string, limit = 30, offset = 
 }
 
 // 7. 获取用户歌单
-export const fetchUserPlayList = async (uid = 1302970235) => {
+export const fetchUserPlayList = async (uid: number) => {
   const { data, execute } = usePost<UserListInfo>(`user/playlist?uid=${uid}`)
+  await execute()
+  return data.value
+}
+
+// 8. 游客登录
+export const fetchTouristLogin = async () => {
+  const { data, execute } = usePost('register/anonimous')
   await execute()
   return data.value
 }

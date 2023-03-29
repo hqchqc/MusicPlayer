@@ -34,24 +34,29 @@ const loading = ref(false)
 
 const fetchPlayList = async () => {
   loading.value = true
-  const msg = await fetchPlayListInfo(Number(queryValue.value.id) as number)
-  const singList = msg?.playlist?.tracks.map(item => ({
-    title: item.name,
-    singer: item.ar?.[0].name,
-    albumInfo: item.al,
-    duration: item.dt,
-    pop: item.pop,
-    id: item.id,
-    isNeedVip: item.fee === 1,
-  }))
-  Object.assign(playListInfo, msg?.playlist)
 
-  tableData.totalCount = msg?.playlist?.trackCount as number
-  tableData.songList = singList as SongsListData['songList']
+  if (queryValue.value.id) {
+    const msg = await fetchPlayListInfo(Number(queryValue.value.id) as number)
+    const singList = msg?.playlist?.tracks.map(item => ({
+      title: item.name,
+      singer: item.ar?.[0].name,
+      albumInfo: item.al,
+      duration: item.dt,
+      pop: item.pop,
+      id: item.id,
+      isNeedVip: item.fee === 1,
+    }))
+    Object.assign(playListInfo, msg?.playlist)
+
+    tableData.totalCount = msg?.playlist?.trackCount as number
+    tableData.songList = singList as SongsListData['songList']
+  }
 
   loading.value = false
 }
 onMounted(() => fetchPlayList())
+
+watch(queryValue, () => fetchPlayList())
 </script>
 
 <template>
