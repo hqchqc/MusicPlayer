@@ -6,8 +6,6 @@
 
 项目基于[Vitesse模板](https://github.com/antfu/vitesse) UI采用 NaiveUI
 
-<br>
-
 ## 特性
 
 - ⚡️ [Vue 3](https://github.com/vuejs/core), [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [esbuild](https://github.com/evanw/esbuild) - 就是快！
@@ -45,8 +43,6 @@
 - ⚙️ 结合 [GitHub Actions](https://github.com/features/actions)，使用 [Vitest](https://github.com/vitest-dev/vitest) 进行单元测试, [Cypress](https://cypress.io/) 进行 E2E 测试
 
 - ☁️ 零配置部署 Netlify
-
-<br>
 
 ## Todo
 
