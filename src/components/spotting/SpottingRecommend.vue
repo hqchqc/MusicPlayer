@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { usrNumberFormat } from '~/composables/number'
 import type { ListType } from '~/types/spotting'
+
 const { recommendPlaylist } = defineProps<{
   recommendPlaylist: ListType[]
 }>()
 const router = useRouter()
 
-const handlePlayList = (item: ListType) => {
+function handlePlayList(item: ListType) {
   router.push(`/playlist?id=${item.id}`)
 }
 </script>

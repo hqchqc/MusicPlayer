@@ -6,6 +6,7 @@ import defaultImg from '~/assets/defaultImg.svg'
 import { useRouteStore } from '~/stores/route'
 import { fetchCheckStatus, fetchHotSearch, fetchLoginStatus, fetchQrImg, fetchQrKey } from '~/network/header'
 import type { HotSearch, LoginStatus } from '~/types/header'
+
 const router = useRouter()
 const route = useRouteStore()
 const user = useUserStore()
@@ -19,11 +20,11 @@ const searchLoading = ref(true)
 const showPopover = ref(false)
 let timer: NodeJS.Timeout
 
-const { searchPlaceholder } = defineModel<{
+const { searchPlaceholder } = defineModels<{
   searchPlaceholder: string
 }>()
 
-const handleLogin = async () => {
+async function handleLogin() {
   const cookie = useStorage('cookie', '')
 
   const loginStatus = await fetchLoginStatus(cookie.value)
@@ -76,9 +77,11 @@ const handleLogin = async () => {
   }
 }
 
-const handleClose = () => timer && clearInterval(timer)
+function handleClose() {
+  return timer && clearInterval(timer)
+}
 
-const handleSearch = async () => {
+async function handleSearch() {
   showPopover.value = true
 
   const hotSearchList = await fetchHotSearch()
@@ -86,19 +89,19 @@ const handleSearch = async () => {
   searchLoading.value = false
 }
 
-const handleWordSearch = async (word: string) => {
+async function handleWordSearch(word: string) {
   inputValue.value = word
   router.push(`/search?keyword=${word}`)
 }
 
-const handleEnter = () => {
+function handleEnter() {
   if (inputValue.value)
     router.push(`/search?keyword=${inputValue.value}`)
   else
     router.push(`/search?keyword=${searchPlaceholder.value}`)
 }
 
-const handleTouristLogin = async () => {
+async function handleTouristLogin() {
   // const msg = await fetchTouristLogin()
   // console.log('msg', msg)
   window.$message.info('开发中哦🎶🎶🎶')

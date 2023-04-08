@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@unocss/reset": "^0.50.6",
+    "@vue-macros/reactivity-transform": "^0.3.4",
     "@vueuse/core": "^9.13.0",
     "@vueuse/head": "^1.1.23",
     "js-confetti": "^0.11.0",

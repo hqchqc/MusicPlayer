@@ -3,7 +3,7 @@ import { NAV_LIST } from '~/config/navConfig'
 
 const searchPlaceholder = ref('')
 
-const fetchSearch = async () => {
+async function fetchSearch() {
   const { data, execute } = usePost<{ realkeyword: string }>('search/default')
   await execute()
   searchPlaceholder.value = data.value?.realkeyword || ''

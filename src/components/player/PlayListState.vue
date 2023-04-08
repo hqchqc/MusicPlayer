@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SongListInfo } from '~/types/search'
+
 const { row } = defineProps<{
   row: SongListInfo
 }>()

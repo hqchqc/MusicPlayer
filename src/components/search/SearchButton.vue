@@ -9,16 +9,16 @@ const { songsList } = defineProps<{
 const showModal = ref(false)
 const player = usePlayerStore()
 
-const submitCallback = async () => {
+async function submitCallback() {
   player.setPlayList(songsList)
   player.playSing()
 }
 
-const handlePlayAll = () => {
+function handlePlayAll() {
   showModal.value = true
 }
 
-const handleAddPlayList = () => {
+function handleAddPlayList() {
   player.setPlayList(songsList)
   window.$message.success('已替换当前播放列表')
 }

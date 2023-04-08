@@ -5,6 +5,7 @@ import { fetchUserPlayList } from '~/network/header'
 import { useNavStore } from '~/stores/nav'
 import { useRouteStore } from '~/stores/route'
 import type { UserPlaylist } from '~/types/header'
+
 const router = useRouter()
 const route = useRouteStore()
 const nav = useNavStore()
@@ -13,7 +14,7 @@ const { savedNavIndex } = storeToRefs(nav)
 const { userInfo } = storeToRefs(user)
 const userPlayList = reactive<UserPlaylist[]>([])
 
-const { navList } = defineModel<{
+const { navList } = defineModels<{
   navList: { navName: string; navPath: string }[]
 }>()
 
@@ -23,14 +24,14 @@ watchEffect(() => {
   route.setForwardSkip()
 })
 
-const fetchPlayList = async () => {
+async function fetchPlayList() {
   if (userInfo.value.userId) {
     const msg = await fetchUserPlayList(user.userInfo.userId)
     Object.assign(userPlayList, msg?.playlist)
   }
 }
 
-const handleNav = (index: number) => {
+function handleNav(index: number) {
   if (index !== 0)
     window.$message.warning('开发中哦🎶🎶🎶， 为您跳转至首页')
 

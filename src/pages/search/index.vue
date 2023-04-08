@@ -15,7 +15,7 @@ const songsList = reactive<SongsListData>({
 })
 const loading = ref(false)
 
-const fetchList = async (pageSize: number, offset: number) => {
+async function fetchList(pageSize: number, offset: number) {
   loading.value = true
   const searchList = await fetchSearchKeyWord(queryValue.value.keyword as string, pageSize, offset)
   const songList = searchList?.result.songs.map(item => ({

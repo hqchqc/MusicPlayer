@@ -3,6 +3,7 @@ import type { ButtonProps, DataTableColumns } from 'naive-ui'
 import type { SongListInfo } from '~/types/search'
 import SearchTableTitle from '~/components/search/SearchTableTitle.vue'
 import SearchTableAction from '~/components/search/SearchTableAction.vue'
+
 type ButtonThemeOverrides = NonNullable<ButtonProps['themeOverrides']>
 
 export const columns: DataTableColumns<SongListInfo> = [

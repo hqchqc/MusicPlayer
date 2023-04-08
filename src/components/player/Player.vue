@@ -16,9 +16,11 @@ const totalTime = computed(() => useDateFormat(currentPlayInfo.value.duration, '
 const isShowPlayIcon = computed(() => playState.value === 'playing')
 const isShowDisabledState = computed(() => player.playState !== 'disabled')
 
-const handlePlayList = () => showOuter.value = !showOuter.value
+function handlePlayList() {
+  return showOuter.value = !showOuter.value
+}
 
-const handleTimeUpdate = () => {
+function handleTimeUpdate() {
   const duration = player.currentPlayInfo.duration
   const audioTime = audio.value?.currentTime ?? 0
   currentTime.value = useDateFormat(audioTime * 1000, 'mm:ss').value

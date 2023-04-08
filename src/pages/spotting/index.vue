@@ -2,17 +2,18 @@
 import { tabThemeOverrides } from '~/config/spotting'
 import { fetchCarousel, fetchPlaylist } from '~/network/spotting'
 import type { BannerType, ListType } from '~/types/spotting'
+
 defineOptions({
   name: 'SpottingPage',
 })
 const bannerInfo = reactive<BannerType[]>([])
 const recommendList = reactive<ListType[]>([])
-const fetchBanner = async () => {
+async function fetchBanner() {
   const msg = await fetchCarousel()
   Object.assign(bannerInfo, msg?.banners)
 }
 
-const fetchList = async () => {
+async function fetchList() {
   const msg = await fetchPlaylist()
   Object.assign(recommendList, msg?.result)
 }

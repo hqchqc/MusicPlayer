@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { NEllipsis } from 'naive-ui'
 import type { SongListInfo } from '~/types/search'
+
 const { row } = defineProps<{
   row: SongListInfo
 }>()
 const player = usePlayerStore()
 const isPlaying = computed(() => player.currentPlayInfo.id === row.id)
-const handleDbClick = (row: SongListInfo) => {
+function handleDbClick(row: SongListInfo) {
   player.playSingByDb(row)
 }
 </script>

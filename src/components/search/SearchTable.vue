@@ -10,7 +10,7 @@ const { tableData, columns, loading, pagination } = defineProps<{
 }>()
 
 const emit = defineEmits(['fetchList'])
-const handlePageChange = async (currentPage: number) => {
+async function handlePageChange(currentPage: number) {
   emit('fetchList', pagination?.pageSize, (currentPage - 1) * (pagination?.pageSize ?? 0))
 }
 </script>

@@ -9,11 +9,11 @@ const { tableData, detail } = defineProps<{
 const showModal = ref(false)
 const player = usePlayerStore()
 
-const handlePlayAll = () => {
+function handlePlayAll() {
   showModal.value = true
 }
 
-const submitCallback = async () => {
+async function submitCallback() {
   player.setPlayList(tableData)
   player.playSing()
 }

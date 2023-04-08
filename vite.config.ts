@@ -15,7 +15,7 @@ import Inspector from 'vite-plugin-vue-inspector'
 import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
-import VueMacros from 'unplugin-vue-macros/vite'
+import VueMacros from 'unplugin-vue-macros'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
@@ -29,7 +29,7 @@ export default defineConfig({
   plugins: [
     // Preview(),
 
-    VueMacros({
+    VueMacros.vite({
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.md$/],

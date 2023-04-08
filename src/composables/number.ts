@@ -1,4 +1,4 @@
-export const usrNumberFormat = (num: number, point: number): string => {
+export function usrNumberFormat(num: number, point: number): string {
   // 将数字转换为字符串,然后通过split方法用.分隔,取到第0个
   const numStr = num.toString().split('.')[0]
   let result = ''

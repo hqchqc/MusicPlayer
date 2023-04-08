@@ -32,7 +32,7 @@ const tableData = reactive<SongsListData>({
 })
 const loading = ref(false)
 
-const fetchPlayList = async () => {
+async function fetchPlayList() {
   loading.value = true
 
   if (queryValue.value.id) {
