@@ -46,9 +46,10 @@ export const usePlayerStore = defineStore('player', () => {
 
     if (playIndex >= 0) {
       const msg = await fetchSongUrl(playlist.songList[playIndex].id)
+      const url = msg?.[0]?.url ? msg?.[0]?.url.replace(/^http/, 'https') : `https://music.163.com/song/media/outer/url?id=${playlist.songList[playIndex].id}.mp3`
       Object.assign(currentPlayInfo, {
         ...playlist.songList[playIndex],
-        url: Array.isArray(msg) ? msg?.[0]?.url : `https://music.163.com/song/media/outer/url?id=${playlist.songList[playIndex].id}.mp3`,
+        url,
       })
       playState.value = 'playing'
     }
@@ -65,9 +66,11 @@ export const usePlayerStore = defineStore('player', () => {
     if (index !== -1) {
       const msg = await fetchSongUrl(id)
 
+      const url = msg?.[0]?.url ? msg?.[0]?.url.replace(/^http/, 'https') : `https://music.163.com/song/media/outer/url?id=${playlist.songList[index].id}.mp3`
+
       Object.assign(currentPlayInfo, {
         ...playlist.songList[index],
-        url: Array.isArray(msg) ? msg?.[0]?.url : `https://music.163.com/song/media/outer/url?id=${playlist.songList[index].id}.mp3`,
+        url,
       })
     }
     playState.value = 'playing'
